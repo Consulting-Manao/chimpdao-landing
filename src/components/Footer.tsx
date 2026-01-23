@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Github, ExternalLink } from "lucide-react";
-import chimpLogo from "@/assets/chimp-logo.png";
+import chimpMascot from "@/assets/chimp-mascot.png";
 import StellarLogo from "./StellarLogo";
 import SCFBadge from "./SCFBadge";
 
@@ -34,7 +34,7 @@ const Footer = () => {
     <footer className="py-16 border-t border-border">
       <div className="container px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Logo and brand */}
+          {/* Logo and brand - using mascot */}
           <motion.div
             className="flex items-center gap-3"
             initial={{ opacity: 0, y: 20 }}
@@ -43,9 +43,9 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
           >
             <img
-              src={chimpLogo}
+              src={chimpMascot}
               alt="ChimpDAO"
-              className="w-10 h-10 object-contain"
+              className="w-12 h-12 object-contain"
             />
             <span className="text-xl font-bold text-foreground">ChimpDAO</span>
           </motion.div>
@@ -111,7 +111,7 @@ const Footer = () => {
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
           >
             <span className="text-sm">Built on</span>
-            <StellarLogo className="h-5 w-auto text-foreground" />
+            <StellarLogo className="h-5 w-auto" />
           </a>
 
           {/* SCF Badge */}

@@ -6,52 +6,52 @@ interface ElectricTracesProps {
 }
 
 const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps) => {
-  // PCB-style traces with 90° and 45° angles
+  // PCB-style traces with 90° and 45° angles - emanating from center
   const traces = [
     // Top traces
-    { path: "M 100 80 L 100 50 L 130 20 L 170 20", delay: 0 },
-    { path: "M 120 75 L 120 40 L 150 10", delay: 0.15 },
+    { path: "M 105 70 L 105 45 L 130 20", delay: 0 },
+    { path: "M 105 70 L 105 35 L 85 15", delay: 0.1 },
     // Top-right traces
-    { path: "M 140 90 L 160 90 L 180 70 L 180 30", delay: 0.1 },
-    { path: "M 145 100 L 175 100 L 190 85 L 190 60", delay: 0.25 },
+    { path: "M 130 90 L 155 90 L 175 70", delay: 0.05 },
+    { path: "M 130 100 L 165 100 L 185 80", delay: 0.15 },
     // Right traces
-    { path: "M 150 110 L 180 110 L 200 110", delay: 0.05 },
-    { path: "M 150 120 L 170 120 L 185 135 L 200 135", delay: 0.2 },
+    { path: "M 135 115 L 170 115 L 195 115", delay: 0.08 },
+    { path: "M 130 130 L 160 130 L 185 155", delay: 0.12 },
     // Bottom-right traces
-    { path: "M 140 140 L 160 140 L 175 155 L 175 180", delay: 0.15 },
-    { path: "M 130 150 L 150 150 L 165 165 L 165 190", delay: 0.3 },
+    { path: "M 120 145 L 120 170 L 145 195", delay: 0.1 },
+    { path: "M 105 145 L 105 180 L 125 200", delay: 0.18 },
     // Bottom traces
-    { path: "M 100 155 L 100 180 L 85 195 L 50 195", delay: 0.1 },
-    { path: "M 115 150 L 115 175 L 130 190", delay: 0.25 },
+    { path: "M 90 145 L 90 175 L 65 200", delay: 0.06 },
+    { path: "M 80 140 L 80 165 L 50 195", delay: 0.14 },
     // Bottom-left traces
-    { path: "M 70 140 L 50 140 L 35 155 L 35 180", delay: 0.2 },
-    { path: "M 80 150 L 60 150 L 45 165 L 45 185", delay: 0.35 },
+    { path: "M 75 130 L 45 130 L 20 155", delay: 0.09 },
+    { path: "M 70 115 L 35 115 L 10 115", delay: 0.16 },
     // Left traces
-    { path: "M 55 110 L 30 110 L 10 110", delay: 0.05 },
-    { path: "M 55 125 L 35 125 L 20 140 L 5 140", delay: 0.2 },
+    { path: "M 75 100 L 40 100 L 15 75", delay: 0.07 },
+    { path: "M 80 90 L 50 90 L 25 65", delay: 0.13 },
     // Top-left traces
-    { path: "M 70 90 L 50 90 L 30 70 L 30 40", delay: 0.15 },
-    { path: "M 65 80 L 45 80 L 25 60 L 25 30", delay: 0.3 },
+    { path: "M 90 75 L 90 50 L 65 25", delay: 0.11 },
+    { path: "M 100 70 L 100 40 L 75 15", delay: 0.17 },
   ];
 
-  // Node points (solder pads)
+  // Node points (solder pads) at trace endpoints
   const nodes = [
-    { x: 170, y: 20, delay: 0.4 },
-    { x: 150, y: 10, delay: 0.55 },
-    { x: 180, y: 30, delay: 0.5 },
-    { x: 190, y: 60, delay: 0.65 },
-    { x: 200, y: 110, delay: 0.45 },
-    { x: 200, y: 135, delay: 0.6 },
-    { x: 175, y: 180, delay: 0.55 },
-    { x: 165, y: 190, delay: 0.7 },
-    { x: 50, y: 195, delay: 0.5 },
-    { x: 130, y: 190, delay: 0.65 },
-    { x: 35, y: 180, delay: 0.6 },
-    { x: 45, y: 185, delay: 0.75 },
-    { x: 10, y: 110, delay: 0.45 },
-    { x: 5, y: 140, delay: 0.6 },
-    { x: 30, y: 40, delay: 0.55 },
-    { x: 25, y: 30, delay: 0.7 },
+    { x: 130, y: 20, delay: 0.3 },
+    { x: 85, y: 15, delay: 0.35 },
+    { x: 175, y: 70, delay: 0.32 },
+    { x: 185, y: 80, delay: 0.38 },
+    { x: 195, y: 115, delay: 0.34 },
+    { x: 185, y: 155, delay: 0.4 },
+    { x: 145, y: 195, delay: 0.36 },
+    { x: 125, y: 200, delay: 0.42 },
+    { x: 65, y: 200, delay: 0.33 },
+    { x: 50, y: 195, delay: 0.39 },
+    { x: 20, y: 155, delay: 0.35 },
+    { x: 10, y: 115, delay: 0.41 },
+    { x: 15, y: 75, delay: 0.34 },
+    { x: 25, y: 65, delay: 0.4 },
+    { x: 65, y: 25, delay: 0.37 },
+    { x: 75, y: 15, delay: 0.43 },
   ];
 
   return (
@@ -64,19 +64,12 @@ const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps
         <defs>
           {/* Glow filter for traces */}
           <filter id="traceGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          
-          {/* Gradient for trace animation */}
-          <linearGradient id="traceGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="hsl(50 100% 50%)" stopOpacity="0" />
-            <stop offset="50%" stopColor="hsl(50 100% 60%)" stopOpacity="1" />
-            <stop offset="100%" stopColor="hsl(50 100% 50%)" stopOpacity="0" />
-          </linearGradient>
         </defs>
 
         {/* Base traces (static, dimmed) */}
@@ -85,14 +78,14 @@ const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps
             key={`base-${index}`}
             d={trace.path}
             fill="none"
-            stroke="hsl(50 100% 50% / 0.15)"
+            stroke="hsl(50 100% 50% / 0.1)"
             strokeWidth="2"
             strokeLinecap="square"
             strokeLinejoin="miter"
           />
         ))}
 
-        {/* Animated traces */}
+        {/* Animated traces - synced with logo scale pulse */}
         {isActive && traces.map((trace, index) => (
           <motion.path
             key={`active-${index}`}
@@ -105,21 +98,21 @@ const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps
             filter="url(#traceGlow)"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ 
-              pathLength: [0, 1, 1],
-              opacity: [0, 1, 0.6]
+              pathLength: [0, 1, 1, 0],
+              opacity: [0, 1, 0.8, 0]
             }}
             transition={{
-              duration: 1.5,
+              duration: 3.5,
               delay: trace.delay,
               ease: "easeOut",
               repeat: Infinity,
-              repeatDelay: 2,
+              times: [0, 0.3, 0.7, 1],
             }}
           />
         ))}
 
         {/* Node points (solder pads) */}
-        {nodes.map((node, index) => (
+        {isActive && nodes.map((node, index) => (
           <motion.circle
             key={`node-${index}`}
             cx={node.x}
@@ -128,40 +121,19 @@ const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps
             fill="hsl(50 100% 50%)"
             filter="url(#traceGlow)"
             initial={{ opacity: 0, scale: 0 }}
-            animate={isActive ? { 
-              opacity: [0, 1, 0.5],
-              scale: [0, 1.2, 1]
-            } : { opacity: 0 }}
+            animate={{ 
+              opacity: [0, 1, 0.6, 0],
+              scale: [0, 1.2, 1, 0]
+            }}
             transition={{
-              duration: 0.8,
-              delay: node.delay + 0.5,
+              duration: 3.5,
+              delay: node.delay,
               ease: "easeOut",
               repeat: Infinity,
-              repeatDelay: 2.7,
+              times: [0, 0.3, 0.7, 1],
             }}
           />
         ))}
-
-        {/* Central glow pulse */}
-        <motion.circle
-          cx="105"
-          cy="115"
-          r="60"
-          fill="none"
-          stroke="hsl(50 100% 50%)"
-          strokeWidth="1"
-          opacity="0.3"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={isActive ? {
-            scale: [0.8, 1.1, 0.8],
-            opacity: [0, 0.3, 0]
-          } : { opacity: 0 }}
-          transition={{
-            duration: 3.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
       </svg>
     </div>
   );
