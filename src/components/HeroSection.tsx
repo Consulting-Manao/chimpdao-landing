@@ -1,15 +1,11 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ElectricTraces from "./ElectricTraces";
 import chimpLogo from "@/assets/chimp-logo.png";
-
-const XIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
+import iconShop from "@/assets/icon-group-25.png";
+import iconNft from "@/assets/icon-group-27.png";
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -36,11 +32,11 @@ const HeroSection = () => {
               {/* PCB traces emanating from logo */}
               <ElectricTraces className="scale-[1.8] md:scale-[2]" isActive={isInView} />
               
-              {/* Main chimp logo with bounce animation */}
+              {/* Main chimp logo with scale pulse animation (synced with traces) */}
               <motion.div
                 className="relative z-10 w-full h-full flex items-center justify-center"
                 animate={isInView ? { 
-                  y: [0, -8, 0],
+                  scale: [1, 1.05, 1],
                 } : {}}
                 transition={{
                   duration: 3.5,
@@ -98,9 +94,11 @@ const HeroSection = () => {
                 href="https://shop.chimpdao.xyz"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="flex items-center gap-3"
               >
-                🛒 Shop Merch
-                <ExternalLink className="ml-2 w-4 h-4" />
+                <img src={iconShop} alt="" className="w-6 h-6 object-contain" />
+                Shop Merch
+                <ExternalLink className="w-4 h-4" />
               </a>
             </Button>
 
@@ -114,9 +112,11 @@ const HeroSection = () => {
                 href="https://nft.chimpdao.xyz"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="flex items-center gap-3"
               >
-                🎨 View NFT Gallery
-                <ExternalLink className="ml-2 w-4 h-4" />
+                <img src={iconNft} alt="" className="w-6 h-6 object-contain" />
+                View NFT Gallery
+                <ExternalLink className="w-4 h-4" />
               </a>
             </Button>
           </motion.div>
@@ -126,7 +126,7 @@ const HeroSection = () => {
             href="https://apps.apple.com/app/chimpdao"
             target="_blank"
             rel="noopener noreferrer"
-            className="mb-12 hover:opacity-80 transition-opacity"
+            className="hover:opacity-80 transition-opacity"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -137,33 +137,6 @@ const HeroSection = () => {
               className="h-14"
             />
           </motion.a>
-
-          {/* Social Links */}
-          <motion.div
-            className="flex gap-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <a
-              href="https://github.com/chimpdao"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors duration-300"
-              aria-label="GitHub"
-            >
-              <Github className="w-6 h-6" />
-            </a>
-            <a
-              href="https://x.com/chimpdao"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors duration-300"
-              aria-label="X (Twitter)"
-            >
-              <XIcon />
-            </a>
-          </motion.div>
         </div>
       </div>
     </section>
