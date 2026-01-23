@@ -1,8 +1,8 @@
 import { motion } from "motion/react";
 import { Github, ExternalLink } from "lucide-react";
 import chimpMascot from "@/assets/chimp-mascot.png";
-import StellarLogo from "./StellarLogo";
-import SCFBadge from "./SCFBadge";
+import stellarSymbol from "@/assets/stellar-symbol.png";
+import scfLogo from "@/assets/scf-logo.svg";
 
 const XIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
@@ -17,109 +17,83 @@ const quickLinks = [
 ];
 
 const socialLinks = [
-  {
-    label: "GitHub",
-    href: "https://github.com/chimpdao",
-    icon: Github,
-  },
-  {
-    label: "X",
-    href: "https://x.com/chimpdao",
-    icon: XIcon,
-  },
+  { label: "GitHub", href: "https://github.com/chimpdao", icon: Github },
+  { label: "X", href: "https://x.com/chimpdao", icon: XIcon },
 ];
 
 const Footer = () => {
   return (
-    <footer className="py-16 border-t border-border">
+    <footer className="py-12 border-t border-border">
       <div className="container px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Logo and brand - using mascot */}
-          <motion.div
-            className="flex items-center gap-3"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+        <motion.div
+          className="flex flex-col lg:flex-row items-center justify-between gap-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Logo and brand - using mascot/hanger logo */}
+          <div className="flex items-center gap-3">
             <img
               src={chimpMascot}
               alt="ChimpDAO"
-              className="w-12 h-12 object-contain"
+              className="w-10 h-10 object-contain"
             />
-            <span className="text-xl font-bold text-foreground">ChimpDAO</span>
-          </motion.div>
+            <span className="text-lg font-bold text-foreground">ChimpDAO</span>
+          </div>
 
           {/* Quick links */}
-          <motion.nav
-            className="flex flex-wrap justify-center gap-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <nav className="flex flex-wrap justify-center gap-6">
             {quickLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center gap-1 group"
+                className="text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center gap-1 group text-sm"
               >
                 {link.label}
                 <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
             ))}
-          </motion.nav>
+          </nav>
 
           {/* Social links */}
-          <motion.div
-            className="flex items-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <div className="flex items-center gap-3">
             {socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
                 aria-label={link.label}
               >
                 <link.icon />
               </a>
             ))}
-          </motion.div>
-        </div>
+          </div>
 
-        {/* Bottom bar with Stellar and SCF badges */}
-        <motion.div
-          className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          {/* Built on Stellar */}
+          {/* Stellar badge */}
           <a
             href="https://stellar.org"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
           >
-            <span className="text-sm">Built on</span>
-            <StellarLogo className="h-5 w-auto" />
+            <span className="text-xs">Built on</span>
+            <img src={stellarSymbol} alt="Stellar" className="h-5 w-auto invert opacity-70 hover:opacity-100 transition-opacity" />
           </a>
 
-          {/* SCF Badge */}
-          <SCFBadge />
+          {/* SCF badge */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground">Funded by</span>
+            <img src={scfLogo} alt="Stellar Community Fund" className="h-5 w-auto opacity-70" />
+          </div>
 
           {/* Copyright */}
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} ChimpDAO. All rights reserved.
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} ChimpDAO
           </p>
         </motion.div>
       </div>
