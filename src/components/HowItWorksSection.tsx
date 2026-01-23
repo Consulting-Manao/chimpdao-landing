@@ -1,92 +1,190 @@
-import { motion } from "motion/react";
-import { useInView } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { useRef } from "react";
-import { ShoppingBag, Smartphone, Sparkles } from "lucide-react";
+import tshirtMerch from "@/assets/tshirt-merch.png";
+import nfcChip from "@/assets/nfc-chip.png";
+import chimpLogo from "@/assets/chimp-logo.png";
 
 const steps = [
   {
-    icon: ShoppingBag,
-    number: "01",
-    title: "Buy NFC-Enabled Merch",
-    description:
-      "Purchase exclusive ChimpDAO merchandise with embedded NFC chips that link to unique digital assets.",
+    image: tshirtMerch,
+    title: "Buy NFC Merch",
+    description: "Get exclusive merch with embedded NFC chips",
   },
   {
-    icon: Smartphone,
-    number: "02",
-    title: "Tap with Your Phone",
-    description:
-      "Simply tap your phone on the NFC chip embedded in your merch to activate the digital connection.",
+    image: nfcChip,
+    title: "Tap Your Phone",
+    description: "Scan the NFC chip with your smartphone",
   },
   {
-    icon: Sparkles,
-    number: "03",
+    image: chimpLogo,
     title: "Reveal Your NFT",
-    description:
-      "Instantly access and claim your exclusive NFT on the Stellar blockchain, proving your ownership.",
+    description: "Claim your NFT on the Stellar blockchain",
   },
 ];
+
+const PCBConnector = ({ index, isInView }: { index: number; isInView: boolean }) => {
+  return (
+    <div className="hidden md:flex items-center justify-center w-24 lg:w-32">
+      <svg viewBox="0 0 100 40" className="w-full h-10" style={{ overflow: "visible" }}>
+        <defs>
+          <filter id={`connectorGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        
+        {/* Base trace (dimmed) */}
+        <path
+          d="M 0 20 L 30 20 L 40 10 L 60 10 L 70 20 L 100 20"
+          fill="none"
+          stroke="hsl(50 100% 50% / 0.2)"
+          strokeWidth="3"
+          strokeLinecap="square"
+        />
+        
+        {/* Animated trace */}
+        <motion.path
+          d="M 0 20 L 30 20 L 40 10 L 60 10 L 70 20 L 100 20"
+          fill="none"
+          stroke="hsl(50 100% 50%)"
+          strokeWidth="3"
+          strokeLinecap="square"
+          filter={`url(#connectorGlow-${index})`}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={isInView ? { 
+            pathLength: 1, 
+            opacity: 1 
+          } : { pathLength: 0, opacity: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5 + index * 0.3,
+            ease: "easeOut",
+          }}
+        />
+        
+        {/* Node points */}
+        <motion.circle
+          cx="40"
+          cy="10"
+          r="4"
+          fill="hsl(50 100% 50%)"
+          filter={`url(#connectorGlow-${index})`}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+          transition={{ duration: 0.4, delay: 0.8 + index * 0.3 }}
+        />
+        <motion.circle
+          cx="60"
+          cy="10"
+          r="4"
+          fill="hsl(50 100% 50%)"
+          filter={`url(#connectorGlow-${index})`}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+          transition={{ duration: 0.4, delay: 0.9 + index * 0.3 }}
+        />
+      </svg>
+    </div>
+  );
+};
+
+const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: boolean }) => {
+  return (
+    <div className="flex md:hidden items-center justify-center h-16 my-2">
+      <svg viewBox="0 0 40 60" className="h-full w-8" style={{ overflow: "visible" }}>
+        <defs>
+          <filter id={`mobileGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        
+        {/* Base trace */}
+        <path
+          d="M 20 0 L 20 20 L 30 30 L 30 40 L 20 50 L 20 60"
+          fill="none"
+          stroke="hsl(50 100% 50% / 0.2)"
+          strokeWidth="3"
+          strokeLinecap="square"
+        />
+        
+        {/* Animated trace */}
+        <motion.path
+          d="M 20 0 L 20 20 L 30 30 L 30 40 L 20 50 L 20 60"
+          fill="none"
+          stroke="hsl(50 100% 50%)"
+          strokeWidth="3"
+          strokeLinecap="square"
+          filter={`url(#mobileGlow-${index})`}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={isInView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5 + index * 0.3,
+            ease: "easeOut",
+          }}
+        />
+        
+        {/* Node point */}
+        <motion.circle
+          cx="30"
+          cy="35"
+          r="4"
+          fill="hsl(50 100% 50%)"
+          filter={`url(#mobileGlow-${index})`}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+          transition={{ duration: 0.4, delay: 0.9 + index * 0.3 }}
+        />
+      </svg>
+    </div>
+  );
+};
 
 const StepCard = ({
   step,
   index,
+  isInView,
 }: {
   step: (typeof steps)[0];
   index: number;
+  isInView: boolean;
 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const Icon = step.icon;
-
   return (
     <motion.div
-      ref={ref}
-      className="relative flex flex-col items-center text-center"
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
+      className="flex flex-col items-center text-center"
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.5, delay: index * 0.2 }}
     >
-      {/* Connecting line for non-last items */}
-      {index < steps.length - 1 && (
-        <motion.div
-          className="hidden md:block absolute top-16 left-[60%] w-full h-[2px] bg-gradient-to-r from-primary/50 to-transparent"
-          initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-          transition={{ duration: 0.8, delay: index * 0.2 + 0.3 }}
-          style={{ transformOrigin: "left" }}
-        />
-      )}
-
-      {/* Number badge */}
-      <motion.span
-        className="text-primary/30 text-7xl font-bold absolute -top-4 -left-4 md:left-auto md:-top-8 select-none"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={
-          isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
-        }
-        transition={{ duration: 0.4, delay: index * 0.2 }}
-      >
-        {step.number}
-      </motion.span>
-
-      {/* Icon container */}
+      {/* Icon container with glow */}
       <motion.div
-        className="relative z-10 w-32 h-32 rounded-2xl bg-card border border-border flex items-center justify-center mb-6 group"
+        className="relative w-28 h-28 md:w-32 md:h-32 rounded-2xl bg-card border border-border flex items-center justify-center mb-4 group"
         whileHover={{
           scale: 1.05,
           boxShadow: "0 0 30px hsl(50 100% 50% / 0.3)",
         }}
         transition={{ duration: 0.3 }}
       >
-        <Icon className="w-12 h-12 text-primary group-hover:scale-110 transition-transform duration-300" />
-
+        <img
+          src={step.image}
+          alt={step.title}
+          className="w-16 h-16 md:w-20 md:h-20 object-contain"
+        />
+        
         {/* Glow effect on hover */}
         <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </motion.div>
 
       {/* Content */}
-      <h3 className="text-xl font-bold mb-3 text-foreground">{step.title}</h3>
-      <p className="text-muted-foreground max-w-xs">{step.description}</p>
+      <h3 className="text-lg md:text-xl font-bold mb-2 text-foreground">{step.title}</h3>
+      <p className="text-sm md:text-base text-muted-foreground max-w-[200px]">{step.description}</p>
     </motion.div>
   );
 };
@@ -101,7 +199,7 @@ const HowItWorksSection = () => {
         {/* Section header */}
         <motion.div
           ref={sectionRef}
-          className="text-center mb-16 md:mb-24"
+          className="text-center mb-16 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
@@ -109,16 +207,32 @@ const HowItWorksSection = () => {
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             <span className="text-primary text-glow">How</span> It Works
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Three simple steps to connect your physical merchandise with
-            blockchain-verified digital ownership.
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            Three simple steps to connect physical merch with blockchain-verified digital ownership.
           </p>
         </motion.div>
 
-        {/* Steps grid */}
-        <div className="grid md:grid-cols-3 gap-12 md:gap-8 max-w-5xl mx-auto">
+        {/* Horizontal flow on desktop */}
+        <div className="hidden md:flex items-center justify-center gap-0 max-w-5xl mx-auto">
           {steps.map((step, index) => (
-            <StepCard key={step.number} step={step} index={index} />
+            <div key={step.title} className="flex items-center">
+              <StepCard step={step} index={index} isInView={isInView} />
+              {index < steps.length - 1 && (
+                <PCBConnector index={index} isInView={isInView} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Vertical flow on mobile */}
+        <div className="flex md:hidden flex-col items-center gap-0">
+          {steps.map((step, index) => (
+            <div key={step.title} className="flex flex-col items-center">
+              <StepCard step={step} index={index} isInView={isInView} />
+              {index < steps.length - 1 && (
+                <MobilePCBConnector index={index} isInView={isInView} />
+              )}
+            </div>
           ))}
         </div>
       </div>
