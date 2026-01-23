@@ -28,9 +28,9 @@ const HeroSection = () => {
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <div className="relative w-48 h-48 md:w-64 md:h-64">
+            <div className="relative w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80">
               {/* PCB traces emanating from logo */}
-              <ElectricTraces className="scale-[1.8] md:scale-[2]" isActive={isInView} />
+              <ElectricTraces className="scale-[1.4] md:scale-[1.6] lg:scale-[1.8]" isActive={isInView} />
               
               {/* Main chimp logo with scale pulse animation (synced with traces) */}
               <motion.div
