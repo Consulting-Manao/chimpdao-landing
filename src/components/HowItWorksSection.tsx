@@ -32,8 +32,8 @@ const PCBConnector = ({
   isHovered: boolean;
 }) => {
   return (
-    <div className="hidden md:flex items-center justify-center w-20 lg:w-28 mx-2">
-      <svg viewBox="0 0 80 30" className="w-full h-8" style={{ overflow: "visible" }}>
+    <div className="hidden md:flex items-center justify-center w-16 lg:w-24 flex-shrink-0">
+      <svg viewBox="0 0 80 20" className="w-full h-5" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`connectorGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -44,79 +44,68 @@ const PCBConnector = ({
           </filter>
         </defs>
         
-        {/* Base trace (dimmed) - simple straight with angle */}
+        {/* Base trace - purely horizontal */}
         <path
-          d="M 0 15 L 25 15 L 40 5 L 55 15 L 80 15"
+          d="M 0 10 L 80 10"
           fill="none"
-          stroke="hsl(50 100% 50% / 0.15)"
+          stroke="hsl(var(--primary) / 0.2)"
           strokeWidth="3"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
+          strokeLinecap="round"
         />
         
         {/* Animated trace */}
         <motion.path
-          d="M 0 15 L 25 15 L 40 5 L 55 15 L 80 15"
+          d="M 0 10 L 80 10"
           fill="none"
-          stroke="hsl(50 100% 50%)"
+          stroke="hsl(var(--primary))"
           strokeWidth="3"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
+          strokeLinecap="round"
           filter={`url(#connectorGlow-${index})`}
           initial={{ pathLength: 0, opacity: 0 }}
           animate={isInView ? { 
             pathLength: 1, 
-            opacity: isHovered ? 1 : 0.6
+            opacity: isHovered ? 1 : 0.5
           } : { pathLength: 0, opacity: 0 }}
           transition={{
-            pathLength: { duration: 0.8, delay: 0.5 + index * 0.3, ease: "easeOut" },
-            opacity: { duration: 0.3 }
+            pathLength: { duration: 0.6, delay: 0.3 + index * 0.2, ease: "easeOut" },
+            opacity: { duration: 0.2 }
           }}
         />
         
-        {/* Node point at junction */}
+        {/* Center node */}
         <motion.circle
           cx="40"
-          cy="5"
+          cy="10"
           r="4"
-          fill="hsl(50 100% 50%)"
+          fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { 
-            opacity: isHovered ? 1 : 0.6, 
-            scale: isHovered ? 1.3 : 1 
-          } : { opacity: 0, scale: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.8 + index * 0.3 : 0 }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: isHovered ? 1 : 0.5 } : { opacity: 0 }}
+          transition={{ duration: 0.3, delay: isInView ? 0.5 + index * 0.2 : 0 }}
         />
         
         {/* Start node */}
         <motion.circle
           cx="0"
-          cy="15"
+          cy="10"
           r="3"
-          fill="hsl(50 100% 50%)"
+          fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { 
-            opacity: isHovered ? 1 : 0.5, 
-            scale: 1 
-          } : { opacity: 0, scale: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.6 + index * 0.3 : 0 }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: isHovered ? 1 : 0.4 } : { opacity: 0 }}
+          transition={{ duration: 0.3, delay: isInView ? 0.4 + index * 0.2 : 0 }}
         />
         
         {/* End node */}
         <motion.circle
           cx="80"
-          cy="15"
+          cy="10"
           r="3"
-          fill="hsl(50 100% 50%)"
+          fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { 
-            opacity: isHovered ? 1 : 0.5, 
-            scale: 1 
-          } : { opacity: 0, scale: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 1 + index * 0.3 : 0 }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: isHovered ? 1 : 0.4 } : { opacity: 0 }}
+          transition={{ duration: 0.3, delay: isInView ? 0.6 + index * 0.2 : 0 }}
         />
       </svg>
     </div>
@@ -125,8 +114,8 @@ const PCBConnector = ({
 
 const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: boolean }) => {
   return (
-    <div className="flex md:hidden items-center justify-center h-12 my-2">
-      <svg viewBox="0 0 30 50" className="h-full w-6" style={{ overflow: "visible" }}>
+    <div className="flex md:hidden items-center justify-center h-10 my-2">
+      <svg viewBox="0 0 20 40" className="h-full w-5" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`mobileGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -137,44 +126,38 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
           </filter>
         </defs>
         
-        {/* Base trace */}
+        {/* Base trace - vertical */}
         <path
-          d="M 15 0 L 15 15 L 22 25 L 15 35 L 15 50"
+          d="M 10 0 L 10 40"
           fill="none"
-          stroke="hsl(50 100% 50% / 0.15)"
+          stroke="hsl(var(--primary) / 0.2)"
           strokeWidth="3"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
+          strokeLinecap="round"
         />
         
         {/* Animated trace */}
         <motion.path
-          d="M 15 0 L 15 15 L 22 25 L 15 35 L 15 50"
+          d="M 10 0 L 10 40"
           fill="none"
-          stroke="hsl(50 100% 50%)"
+          stroke="hsl(var(--primary))"
           strokeWidth="3"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
+          strokeLinecap="round"
           filter={`url(#mobileGlow-${index})`}
           initial={{ pathLength: 0, opacity: 0 }}
-          animate={isInView ? { pathLength: 1, opacity: 0.7 } : { pathLength: 0, opacity: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.5 + index * 0.3,
-            ease: "easeOut",
-          }}
+          animate={isInView ? { pathLength: 1, opacity: 0.6 } : { pathLength: 0, opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 + index * 0.2, ease: "easeOut" }}
         />
         
-        {/* Node point */}
+        {/* Center node */}
         <motion.circle
-          cx="22"
-          cy="25"
+          cx="10"
+          cy="20"
           r="4"
-          fill="hsl(50 100% 50%)"
+          fill="hsl(var(--primary))"
           filter={`url(#mobileGlow-${index})`}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { opacity: 0.8, scale: 1 } : { opacity: 0, scale: 0 }}
-          transition={{ duration: 0.4, delay: 0.9 + index * 0.3 }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 0.7 } : { opacity: 0 }}
+          transition={{ duration: 0.3, delay: 0.5 + index * 0.2 }}
         />
       </svg>
     </div>
@@ -252,8 +235,8 @@ const HowItWorksSection = () => {
           </p>
         </motion.div>
 
-        {/* Horizontal flow on desktop */}
-        <div className="hidden md:flex items-center justify-center max-w-4xl mx-auto">
+        {/* Horizontal flow on desktop - aligned on single row */}
+        <div className="hidden md:flex items-center justify-center max-w-5xl mx-auto">
           {steps.map((step, index) => (
             <div key={step.title} className="flex items-center">
               <StepCard 
