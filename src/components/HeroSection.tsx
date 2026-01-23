@@ -1,8 +1,9 @@
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
+import { useRef } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ElectricTraces from "./ElectricTraces";
-import chimpMascot from "@/assets/chimp-mascot.png";
+import chimpLogo from "@/assets/chimp-logo.png";
 
 const XIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
@@ -11,8 +12,11 @@ const XIcon = () => (
 );
 
 const HeroSection = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Grid background */}
       <div className="absolute inset-0 grid-background opacity-30" />
       
@@ -21,26 +25,35 @@ const HeroSection = () => {
       
       <div className="container relative z-10 px-4 py-20">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* Logo with electric traces */}
+          {/* Logo with PCB electric traces */}
           <motion.div
             className="relative mb-8"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="relative w-48 h-48 md:w-64 md:h-64">
-              <ElectricTraces className="scale-150" />
-              <motion.img
-                src={chimpMascot}
-                alt="ChimpDAO Mascot"
-                className="relative z-10 w-full h-full object-contain drop-shadow-2xl"
-                animate={{ y: [0, -10, 0] }}
+              {/* PCB traces emanating from logo */}
+              <ElectricTraces className="scale-[1.8] md:scale-[2]" isActive={isInView} />
+              
+              {/* Main chimp logo with bounce animation */}
+              <motion.div
+                className="relative z-10 w-full h-full flex items-center justify-center"
+                animate={isInView ? { 
+                  y: [0, -8, 0],
+                } : {}}
                 transition={{
-                  duration: 3,
+                  duration: 3.5,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-              />
+              >
+                <img
+                  src={chimpLogo}
+                  alt="ChimpDAO"
+                  className="w-32 h-32 md:w-44 md:h-44 object-contain drop-shadow-2xl"
+                />
+              </motion.div>
             </div>
           </motion.div>
 
@@ -48,7 +61,7 @@ const HeroSection = () => {
           <motion.h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <span className="text-foreground">Connecting </span>
@@ -62,7 +75,7 @@ const HeroSection = () => {
           <motion.p
             className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             NFC-powered NFTs on{" "}
@@ -73,7 +86,7 @@ const HeroSection = () => {
           <motion.div
             className="flex flex-col sm:flex-row gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <Button
@@ -115,7 +128,7 @@ const HeroSection = () => {
             rel="noopener noreferrer"
             className="mb-12 hover:opacity-80 transition-opacity"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <img
@@ -129,7 +142,7 @@ const HeroSection = () => {
           <motion.div
             className="flex gap-6"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <a
@@ -153,21 +166,6 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{
-          opacity: { delay: 1, duration: 0.5 },
-          y: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
-        }}
-      >
-        <div className="w-6 h-10 border-2 border-muted-foreground/50 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-2 bg-primary rounded-full" />
-        </div>
-      </motion.div>
     </section>
   );
 };

@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { Github, ExternalLink } from "lucide-react";
-import chimpMascot from "@/assets/chimp-mascot.png";
+import chimpLogo from "@/assets/chimp-logo.png";
+import StellarLogo from "./StellarLogo";
+import SCFBadge from "./SCFBadge";
 
 const XIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
@@ -41,7 +43,7 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
           >
             <img
-              src={chimpMascot}
+              src={chimpLogo}
               alt="ChimpDAO"
               className="w-10 h-10 object-contain"
             />
@@ -93,20 +95,27 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom bar with Stellar and SCF badges */}
         <motion.div
-          className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4"
+          className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          {/* Built on Stellar badge */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>Built on</span>
-            <span className="font-semibold text-foreground">Stellar</span>
-            <div className="w-4 h-4 rounded-full bg-gradient-to-br from-blue-400 to-blue-600" />
-          </div>
+          {/* Built on Stellar */}
+          <a
+            href="https://stellar.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
+          >
+            <span className="text-sm">Built on</span>
+            <StellarLogo className="h-5 w-auto text-foreground" />
+          </a>
+
+          {/* SCF Badge */}
+          <SCFBadge />
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
