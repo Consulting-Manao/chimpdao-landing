@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Github } from "lucide-react";
-import chimpMascot from "@/assets/chimp-mascot.png";
+import chimpJoystick from "@/assets/chimp-joystick.png";
 import stellarSymbol from "@/assets/stellar-symbol.png";
 import scfLogo from "@/assets/scf-logo.svg";
 
@@ -30,7 +30,7 @@ const Footer = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <img
-                src={chimpMascot}
+                src={chimpJoystick}
                 alt="ChimpDAO"
                 className="w-10 h-10 object-contain"
               />

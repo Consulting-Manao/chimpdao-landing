@@ -32,8 +32,8 @@ const PCBConnector = ({
   isHovered: boolean;
 }) => {
   return (
-    <div className="hidden md:flex items-center justify-center w-20 lg:w-32 flex-shrink-0 self-center" style={{ marginTop: '-40px' }}>
-      <svg viewBox="0 0 100 40" className="w-full h-10" style={{ overflow: "visible" }}>
+    <div className="hidden md:flex items-center justify-center w-24 lg:w-36 flex-shrink-0">
+      <svg viewBox="0 0 100 40" className="w-full h-12" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`connectorGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -348,24 +348,19 @@ const StepCard = ({
       onMouseEnter={() => onHoverChange(true)}
       onMouseLeave={() => onHoverChange(false)}
     >
-      {/* Icon container with glow */}
+      {/* Icon container - no card, just the icon with hover glow */}
       <motion.div
-        className="relative w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-card border border-border flex items-center justify-center mb-4 group cursor-pointer"
+        className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 cursor-pointer"
         whileHover={{
-          scale: 1.08,
-          boxShadow: "0 0 40px hsl(50 100% 50% / 0.4)",
-          borderColor: "hsl(50 100% 50% / 0.5)",
+          scale: 1.1,
         }}
         transition={{ duration: 0.3 }}
       >
         <img
           src={step.image}
           alt={step.title}
-          className="w-14 h-14 md:w-16 md:h-16 object-contain"
+          className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:drop-shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all duration-300"
         />
-        
-        {/* Glow effect on hover */}
-        <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </motion.div>
 
       {/* Content */}
@@ -399,7 +394,7 @@ const HowItWorksSection = () => {
           </p>
         </motion.div>
 
-        {/* Horizontal flow on desktop - aligned on single row */}
+        {/* Horizontal flow on desktop - perfectly aligned */}
         <div className="hidden md:flex items-center justify-center max-w-5xl mx-auto">
           {steps.map((step, index) => (
             <div key={step.title} className="flex items-center">
