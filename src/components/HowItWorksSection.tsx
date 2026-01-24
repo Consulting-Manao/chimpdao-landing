@@ -28,37 +28,38 @@ const tracePatterns = [
   {
     paths: [
       { d: "M 0 30 L 100 30", strokeWidth: 2.5, delay: 0 },
-      { d: "M 10 18 L 90 18", strokeWidth: 1.5, delay: 0.1 },
-      { d: "M 10 42 L 90 42", strokeWidth: 1.5, delay: 0.15 },
+      { d: "M 0 18 L 100 18", strokeWidth: 1.5, delay: 0.1 },
+      { d: "M 0 42 L 100 42", strokeWidth: 1.5, delay: 0.15 },
     ],
     nodes: [
       { x: 0, y: 30, r: 4, order: 0 },
       { x: 50, y: 30, r: 3, order: 3 },
       { x: 100, y: 30, r: 4, order: 6 },
-      { x: 10, y: 18, r: 2.5, order: 1 },
-      { x: 90, y: 18, r: 2.5, order: 5 },
-      { x: 10, y: 42, r: 2.5, order: 2 },
-      { x: 90, y: 42, r: 2.5, order: 4 },
+      { x: 0, y: 18, r: 2.5, order: 1 },
+      { x: 100, y: 18, r: 2.5, order: 5 },
+      { x: 0, y: 42, r: 2.5, order: 2 },
+      { x: 100, y: 42, r: 2.5, order: 4 },
     ],
   },
-  // Connector 2: Main line with 45-degree branches at ends
+  // Connector 2: Centered fork pattern
   {
     paths: [
       { d: "M 0 30 L 100 30", strokeWidth: 2.5, delay: 0 },
-      { d: "M 15 30 L 25 18", strokeWidth: 1.5, delay: 0.1 },
-      { d: "M 15 30 L 25 42", strokeWidth: 1.5, delay: 0.12 },
-      { d: "M 85 30 L 75 18", strokeWidth: 1.5, delay: 0.15 },
-      { d: "M 85 30 L 75 42", strokeWidth: 1.5, delay: 0.18 },
+      { d: "M 50 30 L 50 18", strokeWidth: 1.5, delay: 0.08 },
+      { d: "M 50 30 L 50 42", strokeWidth: 1.5, delay: 0.08 },
+      { d: "M 30 18 L 70 18", strokeWidth: 1.5, delay: 0.12 },
+      { d: "M 30 42 L 70 42", strokeWidth: 1.5, delay: 0.12 },
     ],
     nodes: [
       { x: 0, y: 30, r: 4, order: 0 },
-      { x: 15, y: 30, r: 3, order: 1 },
-      { x: 25, y: 18, r: 2, order: 2 },
-      { x: 25, y: 42, r: 2, order: 2 },
-      { x: 85, y: 30, r: 3, order: 5 },
-      { x: 75, y: 18, r: 2, order: 4 },
-      { x: 75, y: 42, r: 2, order: 4 },
       { x: 100, y: 30, r: 4, order: 6 },
+      { x: 50, y: 30, r: 3, order: 3 },
+      { x: 50, y: 18, r: 2, order: 2 },
+      { x: 50, y: 42, r: 2, order: 4 },
+      { x: 30, y: 18, r: 2, order: 1 },
+      { x: 70, y: 18, r: 2, order: 5 },
+      { x: 30, y: 42, r: 2, order: 1 },
+      { x: 70, y: 42, r: 2, order: 5 },
     ],
   },
 ];
@@ -87,16 +88,6 @@ const PCBConnector = ({
   return (
     <div className="hidden md:flex items-center justify-center w-32 lg:w-40 flex-shrink-0 self-center">
       <svg viewBox="0 0 100 60" className="w-full h-16" style={{ overflow: "visible" }}>
-        <defs>
-          <filter id={`connectorGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        
         {/* Base paths - always visible at low opacity */}
         {pattern.paths.map((path, i) => (
           <path
@@ -120,7 +111,6 @@ const PCBConnector = ({
             strokeWidth={path.strokeWidth}
             strokeLinecap="round"
             strokeLinejoin="round"
-            filter={i === 0 ? `url(#connectorGlow-${index})` : undefined}
             initial={{ 
               pathLength: direction === "backward" ? 1 : 0, 
               opacity: 0 
@@ -170,37 +160,38 @@ const mobileTracePatterns = [
   {
     paths: [
       { d: "M 22 0 L 22 50", strokeWidth: 2.5, delay: 0 },
-      { d: "M 12 8 L 12 42", strokeWidth: 1.5, delay: 0.1 },
-      { d: "M 32 8 L 32 42", strokeWidth: 1.5, delay: 0.15 },
+      { d: "M 12 0 L 12 50", strokeWidth: 1.5, delay: 0.1 },
+      { d: "M 32 0 L 32 50", strokeWidth: 1.5, delay: 0.15 },
     ],
     nodes: [
       { x: 22, y: 0, r: 3, order: 0 },
       { x: 22, y: 25, r: 2.5, order: 3 },
       { x: 22, y: 50, r: 3, order: 6 },
-      { x: 12, y: 8, r: 2, order: 1 },
-      { x: 12, y: 42, r: 2, order: 5 },
-      { x: 32, y: 8, r: 2, order: 2 },
-      { x: 32, y: 42, r: 2, order: 4 },
+      { x: 12, y: 0, r: 2, order: 1 },
+      { x: 12, y: 50, r: 2, order: 5 },
+      { x: 32, y: 0, r: 2, order: 2 },
+      { x: 32, y: 50, r: 2, order: 4 },
     ],
   },
-  // Connector 2: Main line with 45-degree branches
+  // Connector 2: Centered fork pattern (vertical)
   {
     paths: [
       { d: "M 22 0 L 22 50", strokeWidth: 2.5, delay: 0 },
-      { d: "M 22 10 L 12 18", strokeWidth: 1.5, delay: 0.1 },
-      { d: "M 22 10 L 32 18", strokeWidth: 1.5, delay: 0.12 },
-      { d: "M 22 40 L 12 32", strokeWidth: 1.5, delay: 0.15 },
-      { d: "M 22 40 L 32 32", strokeWidth: 1.5, delay: 0.18 },
+      { d: "M 22 25 L 12 25", strokeWidth: 1.5, delay: 0.08 },
+      { d: "M 22 25 L 32 25", strokeWidth: 1.5, delay: 0.08 },
+      { d: "M 12 15 L 12 35", strokeWidth: 1.5, delay: 0.12 },
+      { d: "M 32 15 L 32 35", strokeWidth: 1.5, delay: 0.12 },
     ],
     nodes: [
       { x: 22, y: 0, r: 3, order: 0 },
-      { x: 22, y: 10, r: 2.5, order: 1 },
-      { x: 12, y: 18, r: 2, order: 2 },
-      { x: 32, y: 18, r: 2, order: 2 },
-      { x: 22, y: 40, r: 2.5, order: 5 },
-      { x: 12, y: 32, r: 2, order: 4 },
-      { x: 32, y: 32, r: 2, order: 4 },
       { x: 22, y: 50, r: 3, order: 6 },
+      { x: 22, y: 25, r: 2.5, order: 3 },
+      { x: 12, y: 25, r: 2, order: 2 },
+      { x: 32, y: 25, r: 2, order: 4 },
+      { x: 12, y: 15, r: 2, order: 1 },
+      { x: 12, y: 35, r: 2, order: 5 },
+      { x: 32, y: 15, r: 2, order: 1 },
+      { x: 32, y: 35, r: 2, order: 5 },
     ],
   },
 ];
@@ -226,16 +217,6 @@ const MobilePCBConnector = ({
   return (
     <div className="flex md:hidden items-center justify-center h-14 my-2">
       <svg viewBox="0 0 44 50" className="h-full w-11" style={{ overflow: "visible" }}>
-        <defs>
-          <filter id={`mobileGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        
         {/* Base paths */}
         {pattern.paths.map((path, i) => (
           <path
@@ -259,7 +240,6 @@ const MobilePCBConnector = ({
             strokeWidth={path.strokeWidth}
             strokeLinecap="round"
             strokeLinejoin="round"
-            filter={i === 0 ? `url(#mobileGlow-${index})` : undefined}
             initial={{ 
               pathLength: direction === "backward" ? 1 : 0, 
               opacity: 0 
@@ -321,16 +301,7 @@ const StepCard = ({
         <img
           src={step.image}
           alt={step.title}
-          className="w-16 h-16 md:w-20 md:h-20 object-contain transition-all duration-300 opacity-90 group-hover:opacity-100"
-          style={{
-            filter: "drop-shadow(0 0 20px hsl(var(--primary) / 0.3))",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.filter = "drop-shadow(0 0 35px hsl(var(--primary) / 0.6))";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.filter = "drop-shadow(0 0 20px hsl(var(--primary) / 0.3))";
-          }}
+          className="w-16 h-16 md:w-20 md:h-20 object-contain transition-opacity duration-300 opacity-90 group-hover:opacity-100"
         />
       </div>
 
@@ -395,14 +366,7 @@ const HowItWorksSection = () => {
                   <img
                     src={step.image}
                     alt={step.title}
-                    className="w-20 h-20 lg:w-24 lg:h-24 object-contain transition-all duration-300 opacity-90 group-hover:opacity-100"
-                    style={{ filter: "drop-shadow(0 0 20px hsl(var(--primary) / 0.3))" }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.filter = "drop-shadow(0 0 35px hsl(var(--primary) / 0.6))";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.filter = "drop-shadow(0 0 20px hsl(var(--primary) / 0.3))";
-                    }}
+                    className="w-20 h-20 lg:w-24 lg:h-24 object-contain transition-opacity duration-300 opacity-90 group-hover:opacity-100"
                   />
                 </motion.div>
                 
