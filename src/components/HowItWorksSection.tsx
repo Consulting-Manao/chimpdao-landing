@@ -32,8 +32,8 @@ const PCBConnector = ({
   isHovered: boolean;
 }) => {
   return (
-    <div className="hidden md:flex items-center justify-center w-24 lg:w-36 flex-shrink-0">
-      <svg viewBox="0 0 100 40" className="w-full h-12" style={{ overflow: "visible" }}>
+    <div className="hidden md:flex items-center justify-center w-20 lg:w-28 flex-shrink-0 self-center">
+      <svg viewBox="0 0 80 60" className="w-full h-16" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`connectorGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -44,42 +44,40 @@ const PCBConnector = ({
           </filter>
         </defs>
         
-        {/* Base traces - main path with branches */}
+        {/* Base traces - main horizontal with branches */}
         <path
-          d="M 0 20 L 25 20 L 35 20 L 65 20 L 75 20 L 100 20"
+          d="M 0 30 L 20 30 L 40 30 L 60 30 L 80 30"
           fill="none"
           stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="3"
+          strokeWidth="2.5"
           strokeLinecap="round"
-          strokeLinejoin="round"
         />
         {/* Upper branch */}
         <path
-          d="M 30 20 L 40 10 L 55 10"
+          d="M 25 30 L 35 18 L 50 18"
           fill="none"
           stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         {/* Lower branch */}
         <path
-          d="M 70 20 L 60 30 L 45 30"
+          d="M 55 30 L 45 42 L 30 42"
           fill="none"
           stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         
         {/* Animated main trace */}
         <motion.path
-          d="M 0 20 L 25 20 L 35 20 L 65 20 L 75 20 L 100 20"
+          d="M 0 30 L 20 30 L 40 30 L 60 30 L 80 30"
           fill="none"
           stroke="hsl(var(--primary))"
-          strokeWidth="3"
+          strokeWidth="2.5"
           strokeLinecap="round"
-          strokeLinejoin="round"
           filter={`url(#connectorGlow-${index})`}
           initial={{ pathLength: 0, opacity: 0 }}
           animate={isInView ? { 
@@ -94,10 +92,10 @@ const PCBConnector = ({
         
         {/* Animated upper branch */}
         <motion.path
-          d="M 30 20 L 40 10 L 55 10"
+          d="M 25 30 L 35 18 L 50 18"
           fill="none"
           stroke="hsl(var(--primary))"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           filter={`url(#connectorGlow-${index})`}
@@ -114,10 +112,10 @@ const PCBConnector = ({
         
         {/* Animated lower branch */}
         <motion.path
-          d="M 70 20 L 60 30 L 45 30"
+          d="M 55 30 L 45 42 L 30 42"
           fill="none"
           stroke="hsl(var(--primary))"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           filter={`url(#connectorGlow-${index})`}
@@ -135,7 +133,7 @@ const PCBConnector = ({
         {/* Main line nodes */}
         <motion.circle
           cx="0"
-          cy="20"
+          cy="30"
           r="3"
           fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
@@ -144,9 +142,9 @@ const PCBConnector = ({
           transition={{ duration: 0.3, delay: isInView ? 0.4 + index * 0.2 : 0 }}
         />
         <motion.circle
-          cx="50"
-          cy="20"
-          r="4"
+          cx="40"
+          cy="30"
+          r="3.5"
           fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
@@ -154,8 +152,8 @@ const PCBConnector = ({
           transition={{ duration: 0.3, delay: isInView ? 0.5 + index * 0.2 : 0 }}
         />
         <motion.circle
-          cx="100"
-          cy="20"
+          cx="80"
+          cy="30"
           r="3"
           fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
@@ -166,9 +164,9 @@ const PCBConnector = ({
         
         {/* Branch endpoint nodes */}
         <motion.circle
-          cx="55"
-          cy="10"
-          r="2.5"
+          cx="50"
+          cy="18"
+          r="2"
           fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
@@ -176,9 +174,9 @@ const PCBConnector = ({
           transition={{ duration: 0.3, delay: isInView ? 0.7 + index * 0.2 : 0 }}
         />
         <motion.circle
-          cx="45"
-          cy="30"
-          r="2.5"
+          cx="30"
+          cy="42"
+          r="2"
           fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
@@ -188,9 +186,9 @@ const PCBConnector = ({
         
         {/* Junction nodes at bends */}
         <motion.circle
-          cx="30"
-          cy="20"
-          r="2"
+          cx="25"
+          cy="30"
+          r="1.5"
           fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
@@ -198,9 +196,9 @@ const PCBConnector = ({
           transition={{ duration: 0.3, delay: isInView ? 0.55 + index * 0.2 : 0 }}
         />
         <motion.circle
-          cx="70"
-          cy="20"
-          r="2"
+          cx="55"
+          cy="30"
+          r="1.5"
           fill="hsl(var(--primary))"
           filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
@@ -214,8 +212,8 @@ const PCBConnector = ({
 
 const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: boolean }) => {
   return (
-    <div className="flex md:hidden items-center justify-center h-12 my-2">
-      <svg viewBox="0 0 40 50" className="h-full w-10" style={{ overflow: "visible" }}>
+    <div className="flex md:hidden items-center justify-center h-10 my-1">
+      <svg viewBox="0 0 40 40" className="h-full w-8" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`mobileGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -228,37 +226,37 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
         
         {/* Base traces - vertical with branches */}
         <path
-          d="M 20 0 L 20 25 L 20 50"
+          d="M 20 0 L 20 20 L 20 40"
           fill="none"
           stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="3"
+          strokeWidth="2.5"
           strokeLinecap="round"
         />
         {/* Left branch */}
         <path
-          d="M 20 20 L 10 28 L 5 28"
+          d="M 20 15 L 10 22 L 5 22"
           fill="none"
           stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         {/* Right branch */}
         <path
-          d="M 20 30 L 30 22 L 35 22"
+          d="M 20 25 L 30 18 L 35 18"
           fill="none"
           stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         
         {/* Animated main trace */}
         <motion.path
-          d="M 20 0 L 20 25 L 20 50"
+          d="M 20 0 L 20 20 L 20 40"
           fill="none"
           stroke="hsl(var(--primary))"
-          strokeWidth="3"
+          strokeWidth="2.5"
           strokeLinecap="round"
           filter={`url(#mobileGlow-${index})`}
           initial={{ pathLength: 0, opacity: 0 }}
@@ -268,10 +266,10 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
         
         {/* Animated branches */}
         <motion.path
-          d="M 20 20 L 10 28 L 5 28"
+          d="M 20 15 L 10 22 L 5 22"
           fill="none"
           stroke="hsl(var(--primary))"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           filter={`url(#mobileGlow-${index})`}
@@ -280,10 +278,10 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
           transition={{ duration: 0.3, delay: 0.5 + index * 0.2, ease: "easeOut" }}
         />
         <motion.path
-          d="M 20 30 L 30 22 L 35 22"
+          d="M 20 25 L 30 18 L 35 18"
           fill="none"
           stroke="hsl(var(--primary))"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           filter={`url(#mobileGlow-${index})`}
@@ -295,8 +293,8 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
         {/* Nodes */}
         <motion.circle
           cx="20"
-          cy="25"
-          r="4"
+          cy="20"
+          r="3"
           fill="hsl(var(--primary))"
           filter={`url(#mobileGlow-${index})`}
           initial={{ opacity: 0 }}
@@ -305,8 +303,8 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
         />
         <motion.circle
           cx="5"
-          cy="28"
-          r="2"
+          cy="22"
+          r="1.5"
           fill="hsl(var(--primary))"
           filter={`url(#mobileGlow-${index})`}
           initial={{ opacity: 0 }}
@@ -315,8 +313,8 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
         />
         <motion.circle
           cx="35"
-          cy="22"
-          r="2"
+          cy="18"
+          r="1.5"
           fill="hsl(var(--primary))"
           filter={`url(#mobileGlow-${index})`}
           initial={{ opacity: 0 }}
@@ -348,20 +346,23 @@ const StepCard = ({
       onMouseEnter={() => onHoverChange(true)}
       onMouseLeave={() => onHoverChange(false)}
     >
-      {/* Icon container - no card, just the icon with hover glow */}
-      <motion.div
-        className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 cursor-pointer"
-        whileHover={{
-          scale: 1.1,
-        }}
-        transition={{ duration: 0.3 }}
-      >
+      {/* Icon container - CSS hover only, no motion scale to avoid filter artifacts */}
+      <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 cursor-pointer group">
         <img
           src={step.image}
           alt={step.title}
-          className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:drop-shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all duration-300"
+          className="w-16 h-16 md:w-20 md:h-20 object-contain transition-all duration-300 opacity-90 group-hover:opacity-100"
+          style={{
+            filter: "drop-shadow(0 0 20px hsl(var(--primary) / 0.3))",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.filter = "drop-shadow(0 0 35px hsl(var(--primary) / 0.6))";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.filter = "drop-shadow(0 0 20px hsl(var(--primary) / 0.3))";
+          }}
         />
-      </motion.div>
+      </div>
 
       {/* Content */}
       <h3 className="text-lg md:text-xl font-bold mb-2 text-foreground">{step.title}</h3>
