@@ -1,8 +1,8 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
-import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ElectricTraces from "./ElectricTraces";
+import PixelArrow from "./PixelArrow";
 import chimpLogo from "@/assets/chimp-logo.png";
 import iconShop from "@/assets/icon-group-25.png";
 import iconNft from "@/assets/icon-group-27.png";
@@ -98,7 +98,7 @@ const HeroSection = () => {
               >
                 <img src={iconShop} alt="" className="w-6 h-6 object-contain" />
                 Shop Merch
-                <ExternalLink className="w-4 h-4" />
+                <PixelArrow className="w-4 h-4" />
               </a>
             </Button>
 
@@ -116,7 +116,7 @@ const HeroSection = () => {
               >
                 <img src={iconNft} alt="" className="w-6 h-6 object-contain" />
                 View NFT Gallery
-                <ExternalLink className="w-4 h-4" />
+                <PixelArrow className="w-4 h-4" />
               </a>
             </Button>
           </motion.div>
