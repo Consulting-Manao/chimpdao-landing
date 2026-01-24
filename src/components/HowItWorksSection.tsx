@@ -382,7 +382,7 @@ const HowItWorksSection = () => {
         {/* Section header */}
         <motion.div
           ref={sectionRef}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-20 md:mb-28"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
@@ -395,25 +395,76 @@ const HowItWorksSection = () => {
           </p>
         </motion.div>
 
-        {/* Horizontal flow on desktop - perfectly aligned */}
-        <div className="hidden md:flex items-center justify-center max-w-5xl mx-auto">
-          {steps.map((step, index) => (
-            <div key={step.title} className="flex items-center">
-              <StepCard 
-                step={step} 
-                index={index} 
-                isInView={isInView} 
-                onHoverChange={(hovered) => setHoveredIndex(hovered ? index : null)}
-              />
-              {index < steps.length - 1 && (
-                <PCBConnector 
-                  index={index} 
-                  isInView={isInView} 
-                  isHovered={hoveredIndex === index || hoveredIndex === index + 1}
-                />
-              )}
-            </div>
-          ))}
+        {/* Desktop: 3-row structure for perfect alignment */}
+        <div className="hidden md:block max-w-5xl mx-auto">
+          {/* Row 1: Icons + Traces - all perfectly aligned on same horizontal axis */}
+          <div className="flex items-center justify-center mb-6">
+            {steps.map((step, index) => (
+              <div key={step.title} className="flex items-center">
+                {/* Icon only */}
+                <motion.div
+                  className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center cursor-pointer group"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                >
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    className="w-20 h-20 lg:w-24 lg:h-24 object-contain transition-all duration-300 opacity-90 group-hover:opacity-100"
+                    style={{ filter: "drop-shadow(0 0 20px hsl(var(--primary) / 0.3))" }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.filter = "drop-shadow(0 0 35px hsl(var(--primary) / 0.6))";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.filter = "drop-shadow(0 0 20px hsl(var(--primary) / 0.3))";
+                    }}
+                  />
+                </motion.div>
+                
+                {/* Trace connector */}
+                {index < steps.length - 1 && (
+                  <PCBConnector 
+                    index={index} 
+                    isInView={isInView} 
+                    isHovered={hoveredIndex === index || hoveredIndex === index + 1}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Row 2: Titles - centered under each icon */}
+          <div className="flex justify-between max-w-3xl mx-auto mb-2">
+            {steps.map((step, index) => (
+              <motion.h3
+                key={step.title}
+                className="text-xl font-bold text-foreground text-center flex-1"
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+              >
+                {step.title}
+              </motion.h3>
+            ))}
+          </div>
+
+          {/* Row 3: Descriptions - centered under each title */}
+          <div className="flex justify-between max-w-3xl mx-auto">
+            {steps.map((step, index) => (
+              <motion.p
+                key={step.description}
+                className="text-base text-muted-foreground text-center flex-1 max-w-[200px] mx-auto"
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.15 }}
+              >
+                {step.description}
+              </motion.p>
+            ))}
+          </div>
         </div>
 
         {/* Vertical flow on mobile */}
