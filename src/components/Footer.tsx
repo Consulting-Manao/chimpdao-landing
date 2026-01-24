@@ -11,8 +11,8 @@ const XIcon = ({ className }: { className?: string }) => (
 );
 
 const socialLinks = [
-  { label: "GitHub", href: "https://github.com/chimpdao", icon: Github },
-  { label: "X", href: "https://x.com/chimpdao", icon: XIcon },
+  { label: "GitHub", href: "https://github.com/orgs/Consulting-Manao/repositories", icon: Github },
+  { label: "X", href: "https://x.com/Chi_m_p", icon: XIcon },
 ];
 
 const Footer = () => {
