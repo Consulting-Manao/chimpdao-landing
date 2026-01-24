@@ -12,7 +12,7 @@ const HeroSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section ref={sectionRef} className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Grid background */}
       <div className="absolute inset-0 grid-background opacity-30" />
       
