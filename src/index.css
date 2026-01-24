@@ -50,6 +50,10 @@
     --electric-primary: 50 100% 50%;
     --electric-secondary: 45 100% 60%;
     --electric-glow: 50 100% 70%;
+    
+    /* Secondary accent - complementary purple */
+    --chimp-purple: 270 100% 60%;
+    --chimp-purple-glow: 270 100% 70%;
 
     --sidebar-background: 0 0% 6%;
     --sidebar-foreground: 60 100% 97%;
@@ -91,6 +95,13 @@
       0 0 25px hsl(var(--chimp-yellow) / 0.5),
       0 0 50px hsl(var(--chimp-yellow) / 0.3),
       0 0 75px hsl(var(--chimp-yellow) / 0.2);
+  }
+
+  .electric-glow-purple:hover {
+    box-shadow: 
+      0 0 25px hsl(var(--chimp-purple) / 0.5),
+      0 0 50px hsl(var(--chimp-purple) / 0.3),
+      0 0 75px hsl(var(--chimp-purple) / 0.2);
   }
 
   /* Subtle grid background */

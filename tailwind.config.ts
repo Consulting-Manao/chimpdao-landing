@@ -61,6 +61,8 @@ export default {
         chimp: {
           yellow: "hsl(var(--chimp-yellow))",
           "yellow-glow": "hsl(var(--chimp-yellow-glow))",
+          purple: "hsl(var(--chimp-purple))",
+          "purple-glow": "hsl(var(--chimp-purple-glow))",
           dark: "hsl(var(--chimp-dark))",
           darker: "hsl(var(--chimp-darker))",
           surface: "hsl(var(--chimp-surface))",

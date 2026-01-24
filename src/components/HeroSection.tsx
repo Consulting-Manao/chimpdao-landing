@@ -104,7 +104,7 @@ const HeroSection = () => {
               asChild
               size="lg"
               variant="outline"
-              className="text-lg px-8 py-6 border-primary/50 hover:border-primary/80 hover:shadow-[0_0_20px_hsl(50_100%_50%/0.2)] transition-all duration-300"
+              className="text-lg px-8 py-6 border-chimp-purple text-chimp-purple hover:bg-chimp-purple/10 hover:border-chimp-purple-glow electric-glow-purple transition-all duration-300"
             >
               <a
                 href="https://nft.chimpdao.xyz"
