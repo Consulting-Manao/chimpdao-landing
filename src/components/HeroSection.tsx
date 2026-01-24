@@ -103,8 +103,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 border-chimp-purple text-chimp-purple hover:bg-chimp-purple/10 hover:border-chimp-purple-glow electric-glow-purple transition-all duration-300"
+              className="text-lg px-8 py-6 bg-chimp-purple/20 text-chimp-purple border-2 border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
             >
               <a
                 href="https://nft.chimpdao.xyz"
