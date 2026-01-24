@@ -12,7 +12,7 @@ const HeroSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
       {/* Grid background */}
       <div className="absolute inset-0 grid-background opacity-30" />
       
@@ -36,7 +36,7 @@ const HeroSection = () => {
               <motion.div
                 className="relative z-10 w-full h-full flex items-center justify-center"
                 animate={isInView ? { 
-                  scale: [1, 1.05, 1],
+                  scale: [1, 1.12, 1],
                 } : {}}
                 transition={{
                   duration: 3.5,

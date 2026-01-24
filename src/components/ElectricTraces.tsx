@@ -9,50 +9,51 @@ const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps
   // ASYMMETRIC traces - different patterns on each side
   // Traces flow from center outward, not extending too high (Y > 50)
   const traces = [
-    // Left side - 3 traces with varied lengths
-    { path: "M 140 140 L 105 140 L 75 115 L 35 115", delay: 0 },
-    { path: "M 140 150 L 100 150 L 65 170 L 25 170", delay: 0.06 },
-    { path: "M 140 158 L 90 158 L 55 145 L 20 145 L 5 160", delay: 0.1 },
+    // Left side - 3 traces with clear vertical separation (no crossing)
+    { path: "M 140 135 L 105 135 L 75 110 L 35 110", delay: 0 },
+    { path: "M 140 150 L 100 150 L 65 175 L 25 175", delay: 0.06 },
+    { path: "M 140 165 L 90 165 L 55 190 L 20 190", delay: 0.1 },
     
-    // Right side - 2 traces (asymmetric, fewer than left)
-    { path: "M 140 142 L 185 142 L 220 125 L 260 125", delay: 0.03 },
-    { path: "M 140 162 L 195 162 L 235 180 L 270 180", delay: 0.09 },
+    // Right side - 2 traces with clear separation
+    { path: "M 140 138 L 185 138 L 220 115 L 260 115", delay: 0.03 },
+    { path: "M 140 168 L 195 168 L 235 195 L 270 195", delay: 0.09 },
     
-    // Top - 2 traces with different heights (not going above Y:55)
-    { path: "M 135 120 L 135 95 L 105 70 L 70 70", delay: 0.05 },
-    { path: "M 148 118 L 148 85 L 180 60 L 220 60", delay: 0.12 },
+    // Top - 2 traces going upward (not crossing, different directions)
+    { path: "M 130 120 L 130 90 L 95 65 L 55 65", delay: 0.05 },
+    { path: "M 150 118 L 150 85 L 185 60 L 230 60", delay: 0.12 },
     
-    // Bottom - 2 shorter traces (asymmetric)
-    { path: "M 132 168 L 132 200 L 95 220", delay: 0.14 },
-    { path: "M 152 170 L 152 210 L 190 235 L 240 235", delay: 0.18 },
+    // Bottom - 2 traces going downward (clear separation)
+    { path: "M 128 175 L 128 210 L 85 235", delay: 0.14 },
+    { path: "M 155 178 L 155 215 L 200 245 L 250 245", delay: 0.18 },
   ];
 
   // Endpoint nodes at trace ends
   const nodes = [
-    // Left endpoints
-    { x: 35, y: 115, delay: 0.5 },
-    { x: 25, y: 170, delay: 0.54 },
-    { x: 5, y: 160, delay: 0.58 },
+    // Left endpoints (matching new trace paths)
+    { x: 35, y: 110, delay: 0.5 },
+    { x: 25, y: 175, delay: 0.54 },
+    { x: 20, y: 190, delay: 0.58 },
     // Right endpoints
-    { x: 260, y: 125, delay: 0.52 },
-    { x: 270, y: 180, delay: 0.56 },
+    { x: 260, y: 115, delay: 0.52 },
+    { x: 270, y: 195, delay: 0.56 },
     // Top endpoints
-    { x: 70, y: 70, delay: 0.53 },
-    { x: 220, y: 60, delay: 0.6 },
+    { x: 55, y: 65, delay: 0.53 },
+    { x: 230, y: 60, delay: 0.6 },
     // Bottom endpoints
-    { x: 95, y: 220, delay: 0.62 },
-    { x: 240, y: 235, delay: 0.66 },
+    { x: 85, y: 235, delay: 0.62 },
+    { x: 250, y: 245, delay: 0.66 },
   ];
 
   // Junction nodes at bends
   const junctionNodes = [
-    { x: 75, y: 115, delay: 0.22 },
-    { x: 65, y: 170, delay: 0.26 },
-    { x: 220, y: 125, delay: 0.24 },
-    { x: 235, y: 180, delay: 0.28 },
-    { x: 105, y: 70, delay: 0.25 },
-    { x: 180, y: 60, delay: 0.32 },
-    { x: 95, y: 220, delay: 0.35 },
+    // Junction nodes at bends (matching new trace paths)
+    { x: 75, y: 110, delay: 0.22 },
+    { x: 65, y: 175, delay: 0.26 },
+    { x: 220, y: 115, delay: 0.24 },
+    { x: 235, y: 195, delay: 0.28 },
+    { x: 95, y: 65, delay: 0.25 },
+    { x: 185, y: 60, delay: 0.32 },
+    { x: 85, y: 235, delay: 0.35 },
   ];
 
   return (

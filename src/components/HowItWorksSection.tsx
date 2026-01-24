@@ -130,13 +130,12 @@ const PCBConnector = ({
           }}
         />
         
-        {/* Main line nodes */}
+        {/* Main line nodes - no filter to avoid square artifacts */}
         <motion.circle
           cx="0"
           cy="30"
           r="3"
           fill="hsl(var(--primary))"
-          filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isHovered ? 1 : 0.4 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: isInView ? 0.4 + index * 0.2 : 0 }}
@@ -146,7 +145,6 @@ const PCBConnector = ({
           cy="30"
           r="3.5"
           fill="hsl(var(--primary))"
-          filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isHovered ? 1 : 0.5 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: isInView ? 0.5 + index * 0.2 : 0 }}
@@ -156,19 +154,17 @@ const PCBConnector = ({
           cy="30"
           r="3"
           fill="hsl(var(--primary))"
-          filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isHovered ? 1 : 0.4 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: isInView ? 0.6 + index * 0.2 : 0 }}
         />
         
-        {/* Branch endpoint nodes */}
+        {/* Branch endpoint nodes - no filter to avoid square artifacts */}
         <motion.circle
           cx="50"
           cy="18"
           r="2"
           fill="hsl(var(--primary))"
-          filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isHovered ? 0.9 : 0.3 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: isInView ? 0.7 + index * 0.2 : 0 }}
@@ -178,19 +174,17 @@ const PCBConnector = ({
           cy="42"
           r="2"
           fill="hsl(var(--primary))"
-          filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isHovered ? 0.9 : 0.3 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: isInView ? 0.8 + index * 0.2 : 0 }}
         />
         
-        {/* Junction nodes at bends */}
+        {/* Junction nodes at bends - no filter to avoid square artifacts */}
         <motion.circle
           cx="25"
           cy="30"
           r="1.5"
           fill="hsl(var(--primary))"
-          filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isHovered ? 0.8 : 0.3 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: isInView ? 0.55 + index * 0.2 : 0 }}
@@ -200,7 +194,6 @@ const PCBConnector = ({
           cy="30"
           r="1.5"
           fill="hsl(var(--primary))"
-          filter={`url(#connectorGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isHovered ? 0.8 : 0.3 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: isInView ? 0.65 + index * 0.2 : 0 }}
@@ -290,13 +283,12 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
           transition={{ duration: 0.3, delay: 0.6 + index * 0.2, ease: "easeOut" }}
         />
         
-        {/* Nodes */}
+        {/* Nodes - no filter to avoid square artifacts */}
         <motion.circle
           cx="20"
           cy="20"
           r="3"
           fill="hsl(var(--primary))"
-          filter={`url(#mobileGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 0.7 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: 0.5 + index * 0.2 }}
@@ -306,7 +298,6 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
           cy="22"
           r="1.5"
           fill="hsl(var(--primary))"
-          filter={`url(#mobileGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 0.5 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: 0.6 + index * 0.2 }}
@@ -316,7 +307,6 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
           cy="18"
           r="1.5"
           fill="hsl(var(--primary))"
-          filter={`url(#mobileGlow-${index})`}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 0.5 } : { opacity: 0 }}
           transition={{ duration: 0.3, delay: 0.7 + index * 0.2 }}
@@ -377,12 +367,12 @@ const HowItWorksSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-24 md:py-32 relative" id="how-it-works">
+    <section className="py-12 md:py-16 relative" id="how-it-works">
       <div className="container px-4">
         {/* Section header */}
-        <motion.div
-          ref={sectionRef}
-          className="text-center mb-20 md:mb-28"
+      <motion.div
+        ref={sectionRef}
+        className="text-center mb-10 md:mb-14"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
@@ -398,7 +388,7 @@ const HowItWorksSection = () => {
         {/* Desktop: 3-row structure for perfect alignment */}
         <div className="hidden md:block max-w-5xl mx-auto">
           {/* Row 1: Icons + Traces - all perfectly aligned on same horizontal axis */}
-          <div className="flex items-center justify-center mb-6">
+          <div className="flex items-center justify-center mb-4">
             {steps.map((step, index) => (
               <div key={step.title} className="flex items-center">
                 {/* Icon only */}
