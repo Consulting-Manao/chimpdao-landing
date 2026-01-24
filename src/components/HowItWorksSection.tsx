@@ -38,9 +38,10 @@ const leftTraceNodes = [
 
 const leftTraceJunctions = [
   { x: 0, y: 30, r: 4, delay: 0 },
-  { x: 30, y: 30, r: 2.5, delay: 0.1 },  // Middle path junction
-  { x: 45, y: 18, r: 2.5, delay: 0.15 },
-  { x: 40, y: 42, r: 2.5, delay: 0.2 },
+  { x: 30, y: 30, r: 2.5, delay: 0.08 },
+  { x: 60, y: 30, r: 2.5, delay: 0.15 },
+  { x: 45, y: 18, r: 2.5, delay: 0.2 },
+  { x: 40, y: 42, r: 2.5, delay: 0.25 },
 ];
 
 // Hero-style asymmetric branching traces - Right connector (different pattern)
@@ -60,7 +61,8 @@ const rightTraceJunctions = [
   { x: 0, y: 22, r: 3, delay: 0 },
   { x: 0, y: 30, r: 3, delay: 0.02 },
   { x: 0, y: 38, r: 3, delay: 0.03 },
-  { x: 60, y: 30, r: 2.5, delay: 0.12 },  // Middle path junction
+  { x: 30, y: 30, r: 2.5, delay: 0.06 },
+  { x: 60, y: 30, r: 2.5, delay: 0.12 },
   { x: 75, y: 12, r: 2.5, delay: 0.18 },
   { x: 70, y: 48, r: 2.5, delay: 0.22 },
 ];
@@ -182,12 +184,11 @@ const HowItWorksSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
-                  whileHover={{ scale: 1.12 }}
                 >
                   <img
                     src={step.image}
                     alt={step.title}
-                    className="w-20 h-20 lg:w-24 lg:h-24 object-contain transition-all duration-300"
+                    className="w-20 h-20 lg:w-24 lg:h-24 object-contain transition-all duration-300 hover:scale-110"
                     style={{
                       filter: hoveredIndex === index 
                         ? "drop-shadow(0 0 12px hsl(var(--primary) / 0.6))" 
