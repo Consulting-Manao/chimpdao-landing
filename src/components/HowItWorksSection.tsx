@@ -26,84 +26,73 @@ const steps = [
 // Hero-style asymmetric branching traces - Left connector
 const leftTracePaths = [
   { d: "M 0 30 L 25 30 L 45 18 L 100 18", delay: 0 },
-  { d: "M 0 30 L 30 30 L 100 30", delay: 0.05 },
-  { d: "M 0 30 L 20 30 L 40 42 L 100 42", delay: 0.08 },
+  { d: "M 0 30 L 20 30 L 40 42 L 100 42", delay: 0.05 },
 ];
 
 const leftTraceNodes = [
-  { x: 100, y: 18, r: 3.5, delay: 0.35 },
-  { x: 100, y: 30, r: 3.5, delay: 0.4 },
-  { x: 100, y: 42, r: 3.5, delay: 0.45 },
+  { x: 100, y: 18, r: 3.5, delay: 0.3 },
+  { x: 100, y: 42, r: 3.5, delay: 0.35 },
 ];
 
 const leftTraceJunctions = [
   { x: 0, y: 30, r: 4, delay: 0 },
-  { x: 30, y: 30, r: 2.5, delay: 0.08 },
-  { x: 60, y: 30, r: 2.5, delay: 0.15 },
-  { x: 45, y: 18, r: 2.5, delay: 0.2 },
-  { x: 40, y: 42, r: 2.5, delay: 0.25 },
+  { x: 25, y: 30, r: 2.5, delay: 0.08 },
+  { x: 45, y: 18, r: 2.5, delay: 0.15 },
+  { x: 40, y: 42, r: 2.5, delay: 0.2 },
 ];
 
 // Hero-style asymmetric branching traces - Right connector (different pattern)
 const rightTracePaths = [
-  { d: "M 0 22 L 55 22 L 75 12 L 100 12", delay: 0 },
-  { d: "M 0 30 L 60 30 L 100 30", delay: 0.04 },
-  { d: "M 0 38 L 50 38 L 70 48 L 100 48", delay: 0.07 },
+  { d: "M 0 25 L 55 25 L 75 12 L 100 12", delay: 0 },
+  { d: "M 0 35 L 50 35 L 70 48 L 100 48", delay: 0.05 },
 ];
 
 const rightTraceNodes = [
-  { x: 100, y: 12, r: 3.5, delay: 0.35 },
-  { x: 100, y: 30, r: 3.5, delay: 0.38 },
-  { x: 100, y: 48, r: 3.5, delay: 0.42 },
+  { x: 100, y: 12, r: 3.5, delay: 0.3 },
+  { x: 100, y: 48, r: 3.5, delay: 0.35 },
 ];
 
 const rightTraceJunctions = [
-  { x: 0, y: 22, r: 3, delay: 0 },
-  { x: 0, y: 30, r: 3, delay: 0.02 },
-  { x: 0, y: 38, r: 3, delay: 0.03 },
-  { x: 30, y: 30, r: 2.5, delay: 0.06 },
-  { x: 60, y: 30, r: 2.5, delay: 0.12 },
-  { x: 75, y: 12, r: 2.5, delay: 0.18 },
-  { x: 70, y: 48, r: 2.5, delay: 0.22 },
+  { x: 0, y: 25, r: 3, delay: 0 },
+  { x: 0, y: 35, r: 3, delay: 0.02 },
+  { x: 55, y: 25, r: 2.5, delay: 0.1 },
+  { x: 75, y: 12, r: 2.5, delay: 0.15 },
+  { x: 50, y: 35, r: 2.5, delay: 0.12 },
+  { x: 70, y: 48, r: 2.5, delay: 0.18 },
 ];
 
 // Mobile vertical traces
 const mobileLeftTracePaths = [
   { d: "M 22 0 L 22 15 L 12 25 L 12 50", delay: 0 },
-  { d: "M 22 0 L 22 50", delay: 0.05 },
-  { d: "M 22 0 L 22 18 L 32 28 L 32 50", delay: 0.08 },
+  { d: "M 22 0 L 22 18 L 32 28 L 32 50", delay: 0.05 },
 ];
 
 const mobileLeftTraceNodes = [
-  { x: 12, y: 50, r: 3, delay: 0.35 },
-  { x: 22, y: 50, r: 3, delay: 0.4 },
-  { x: 32, y: 50, r: 3, delay: 0.45 },
+  { x: 12, y: 50, r: 3, delay: 0.3 },
+  { x: 32, y: 50, r: 3, delay: 0.35 },
 ];
 
 const mobileLeftTraceJunctions = [
   { x: 22, y: 0, r: 3.5, delay: 0 },
-  { x: 12, y: 25, r: 2, delay: 0.15 },
-  { x: 32, y: 28, r: 2, delay: 0.2 },
+  { x: 12, y: 25, r: 2, delay: 0.12 },
+  { x: 32, y: 28, r: 2, delay: 0.15 },
 ];
 
 const mobileRightTracePaths = [
   { d: "M 14 0 L 14 20 L 8 30 L 8 50", delay: 0 },
-  { d: "M 22 0 L 22 50", delay: 0.04 },
-  { d: "M 30 0 L 30 22 L 36 32 L 36 50", delay: 0.07 },
+  { d: "M 30 0 L 30 22 L 36 32 L 36 50", delay: 0.05 },
 ];
 
 const mobileRightTraceNodes = [
-  { x: 8, y: 50, r: 3, delay: 0.35 },
-  { x: 22, y: 50, r: 3, delay: 0.38 },
-  { x: 36, y: 50, r: 3, delay: 0.42 },
+  { x: 8, y: 50, r: 3, delay: 0.3 },
+  { x: 36, y: 50, r: 3, delay: 0.35 },
 ];
 
 const mobileRightTraceJunctions = [
   { x: 14, y: 0, r: 2.5, delay: 0 },
-  { x: 22, y: 0, r: 2.5, delay: 0.02 },
-  { x: 30, y: 0, r: 2.5, delay: 0.03 },
-  { x: 8, y: 30, r: 2, delay: 0.18 },
-  { x: 36, y: 32, r: 2, delay: 0.22 },
+  { x: 30, y: 0, r: 2.5, delay: 0.02 },
+  { x: 8, y: 30, r: 2, delay: 0.15 },
+  { x: 36, y: 32, r: 2, delay: 0.18 },
 ];
 
 const HowItWorksSection = () => {
