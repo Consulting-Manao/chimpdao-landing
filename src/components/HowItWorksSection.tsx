@@ -104,7 +104,7 @@ const mobileRightTraceJunctions = [
 
 const HowItWorksSection = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "-20%" });
   const [hasPlayedInitial, setHasPlayedInitial] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeTraces, setActiveTraces] = useState<{
@@ -119,14 +119,7 @@ const HowItWorksSection = () => {
       setHasPlayedInitial(true);
       setActiveTraces({ left: true, right: true });
       setRightTraceDelay(0.4); // Delay right trace for sequential effect
-
-      // Reset after animation completes
-      const timer = setTimeout(() => {
-        setActiveTraces({ left: false, right: false });
-        setRightTraceDelay(0);
-      }, 2000);
-
-      return () => clearTimeout(timer);
+      // Traces stay illuminated until user hovers an icon
     }
   }, [isInView, hasPlayedInitial]);
 
@@ -145,8 +138,8 @@ const HowItWorksSection = () => {
       setActiveTraces({ left: true, right: false });
       setRightTraceDelay(0);
     } else if (index === 1) {
-      // Tap Phone: illuminate right trace only
-      setActiveTraces({ left: false, right: true });
+      // Tap Phone: illuminate BOTH traces (it's in the middle)
+      setActiveTraces({ left: true, right: true });
       setRightTraceDelay(0);
     } else if (index === 2) {
       // Monkey: illuminate both traces in sequence
@@ -160,7 +153,6 @@ const HowItWorksSection = () => {
       <div className="container px-4">
         {/* Section header */}
         <motion.div
-          ref={sectionRef}
           className="text-center mb-10 md:mb-14"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -175,7 +167,7 @@ const HowItWorksSection = () => {
         </motion.div>
 
         {/* Desktop layout */}
-        <div className="hidden md:block max-w-5xl mx-auto">
+        <div ref={sectionRef} className="hidden md:block max-w-5xl mx-auto">
           {/* Row 1: Icons + Traces */}
           <div className="flex items-center justify-center mb-4">
             {steps.map((step, index) => (
