@@ -38,6 +38,7 @@ const leftTraceNodes = [
 
 const leftTraceJunctions = [
   { x: 0, y: 30, r: 4, delay: 0 },
+  { x: 30, y: 30, r: 2.5, delay: 0.1 },  // Middle path junction
   { x: 45, y: 18, r: 2.5, delay: 0.15 },
   { x: 40, y: 42, r: 2.5, delay: 0.2 },
 ];
@@ -59,6 +60,7 @@ const rightTraceJunctions = [
   { x: 0, y: 22, r: 3, delay: 0 },
   { x: 0, y: 30, r: 3, delay: 0.02 },
   { x: 0, y: 38, r: 3, delay: 0.03 },
+  { x: 60, y: 30, r: 2.5, delay: 0.12 },  // Middle path junction
   { x: 75, y: 12, r: 2.5, delay: 0.18 },
   { x: 70, y: 48, r: 2.5, delay: 0.22 },
 ];
