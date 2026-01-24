@@ -6,60 +6,53 @@ interface ElectricTracesProps {
 }
 
 const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps) => {
-  // Traces with paths defined from CENTER outward for proper "tap to illuminate" flow
-  // Each trace starts near center (~140,140) and extends outward
+  // ASYMMETRIC traces - different patterns on each side
+  // Traces flow from center outward, not extending too high (Y > 50)
   const traces = [
-    // Left side traces - flow from center to left
-    { path: "M 140 140 L 120 140 L 90 140 L 65 120 L 30 120", delay: 0 },
-    { path: "M 140 155 L 120 155 L 80 155 L 55 175 L 20 175", delay: 0.08 },
-    { path: "M 140 160 L 115 160 L 85 160 L 60 185 L 25 185 L 10 170", delay: 0.12 },
+    // Left side - 3 traces with varied lengths
+    { path: "M 140 140 L 105 140 L 75 115 L 35 115", delay: 0 },
+    { path: "M 140 150 L 100 150 L 65 170 L 25 170", delay: 0.06 },
+    { path: "M 140 158 L 90 158 L 55 145 L 20 145 L 5 160", delay: 0.1 },
     
-    // Right side traces - flow from center to right
-    { path: "M 140 140 L 160 140 L 190 140 L 215 120 L 250 120", delay: 0.04 },
-    { path: "M 140 155 L 160 155 L 200 155 L 225 175 L 260 175", delay: 0.1 },
-    { path: "M 140 160 L 165 160 L 195 160 L 220 185 L 255 185 L 270 170", delay: 0.06 },
+    // Right side - 2 traces (asymmetric, fewer than left)
+    { path: "M 140 142 L 185 142 L 220 125 L 260 125", delay: 0.03 },
+    { path: "M 140 162 L 195 162 L 235 180 L 270 180", delay: 0.09 },
     
-    // Top traces - flow from center upward
-    { path: "M 140 120 L 130 115 L 130 85 L 110 60 L 110 30", delay: 0.05 },
-    { path: "M 140 120 L 150 115 L 150 80 L 170 55 L 170 25", delay: 0.11 },
-    { path: "M 140 110 L 140 70 L 120 45 L 85 45 L 60 25", delay: 0.08 },
-    { path: "M 140 110 L 140 70 L 160 45 L 195 45 L 220 25", delay: 0.14 },
+    // Top - 2 traces with different heights (not going above Y:55)
+    { path: "M 135 120 L 135 95 L 105 70 L 70 70", delay: 0.05 },
+    { path: "M 148 118 L 148 85 L 180 60 L 220 60", delay: 0.12 },
     
-    // Bottom traces - flow from center downward
-    { path: "M 140 165 L 130 165 L 130 190 L 110 210 L 75 210", delay: 0.16 },
-    { path: "M 140 165 L 150 165 L 150 195 L 175 215 L 210 215", delay: 0.18 },
+    // Bottom - 2 shorter traces (asymmetric)
+    { path: "M 132 168 L 132 200 L 95 220", delay: 0.14 },
+    { path: "M 152 170 L 152 210 L 190 235 L 240 235", delay: 0.18 },
   ];
 
-  // Node points at trace endpoints - delayed to appear after traces reach them
+  // Endpoint nodes at trace ends
   const nodes = [
-    // Left endpoint nodes - appear last (traces flow TO these)
-    { x: 30, y: 120, delay: 0.5 },
-    { x: 20, y: 175, delay: 0.55 },
-    { x: 10, y: 170, delay: 0.6 },
-    // Right endpoint nodes
-    { x: 250, y: 120, delay: 0.52 },
-    { x: 260, y: 175, delay: 0.56 },
-    { x: 270, y: 170, delay: 0.58 },
-    // Top endpoint nodes
-    { x: 110, y: 30, delay: 0.54 },
-    { x: 170, y: 25, delay: 0.57 },
-    { x: 60, y: 25, delay: 0.53 },
-    { x: 220, y: 25, delay: 0.59 },
-    // Bottom endpoint nodes
-    { x: 75, y: 210, delay: 0.62 },
-    { x: 210, y: 215, delay: 0.64 },
+    // Left endpoints
+    { x: 35, y: 115, delay: 0.5 },
+    { x: 25, y: 170, delay: 0.54 },
+    { x: 5, y: 160, delay: 0.58 },
+    // Right endpoints
+    { x: 260, y: 125, delay: 0.52 },
+    { x: 270, y: 180, delay: 0.56 },
+    // Top endpoints
+    { x: 70, y: 70, delay: 0.53 },
+    { x: 220, y: 60, delay: 0.6 },
+    // Bottom endpoints
+    { x: 95, y: 220, delay: 0.62 },
+    { x: 240, y: 235, delay: 0.66 },
   ];
 
-  // Junction nodes (at 45° bends) - appear mid-animation
+  // Junction nodes at bends
   const junctionNodes = [
-    { x: 65, y: 120, delay: 0.25 },
-    { x: 55, y: 175, delay: 0.28 },
-    { x: 215, y: 120, delay: 0.26 },
-    { x: 225, y: 175, delay: 0.29 },
-    { x: 110, y: 60, delay: 0.27 },
-    { x: 170, y: 55, delay: 0.3 },
-    { x: 120, y: 45, delay: 0.32 },
-    { x: 160, y: 45, delay: 0.34 },
+    { x: 75, y: 115, delay: 0.22 },
+    { x: 65, y: 170, delay: 0.26 },
+    { x: 220, y: 125, delay: 0.24 },
+    { x: 235, y: 180, delay: 0.28 },
+    { x: 105, y: 70, delay: 0.25 },
+    { x: 180, y: 60, delay: 0.32 },
+    { x: 95, y: 220, delay: 0.35 },
   ];
 
   return (
