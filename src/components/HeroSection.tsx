@@ -120,7 +120,7 @@ const HeroSection = () => {
 
           {/* App Store Badge */}
           <motion.a
-            href="https://apps.apple.com/app/chimpdao"
+            href="https://apps.apple.com/us/app/chimpdao/id6757618362?itscg=30200&itsct=apps_box_badge&mttnsubad=6757618362"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-80 transition-opacity"
@@ -129,7 +129,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <img
-              src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
+              src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1768521600"
               alt="Download on the App Store"
               className="h-14"
             />
