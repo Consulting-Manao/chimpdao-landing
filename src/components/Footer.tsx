@@ -68,10 +68,15 @@ const Footer = () => {
             </a>
 
             {/* SCF badge */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">Funded by</span>
-              <img src={scfLogo} alt="Stellar Community Fund" className="h-4 w-auto opacity-70" />
-            </div>
+            <a
+              href="https://communityfund.stellar.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              <span className="text-xs">Funded by</span>
+              <img src={scfLogo} alt="Stellar Community Fund" className="h-4 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+            </a>
 
             {/* Copyright */}
             <p className="text-xs text-muted-foreground">
