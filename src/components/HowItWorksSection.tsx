@@ -106,22 +106,22 @@ const HowItWorksSection = () => {
   }>({ left: false, right: false });
   const [rightTraceDelay, setRightTraceDelay] = useState(0);
 
-  // Scroll-triggered initial animation
+  // Scroll-triggered initial animation - traces stay illuminated after first view
   useEffect(() => {
     if (isInView && !hasPlayedInitial) {
       setHasPlayedInitial(true);
       setActiveTraces({ left: true, right: true });
       setRightTraceDelay(0.4); // Delay right trace for sequential effect
-      // Traces stay illuminated until user hovers an icon
     }
   }, [isInView, hasPlayedInitial]);
 
-  // Handle icon hover - triggers illumination
+  // Handle icon hover - enhances illumination, returns to default on leave
   const handleHover = (index: number, hovered: boolean) => {
     setHoveredIndex(hovered ? index : null);
 
     if (!hovered) {
-      setActiveTraces({ left: false, right: false });
+      // Return to default illuminated state (both traces on)
+      setActiveTraces({ left: true, right: true });
       setRightTraceDelay(0);
       return;
     }
