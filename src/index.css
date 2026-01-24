@@ -140,22 +140,4 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
-  /* Electric trace animation */
-  @keyframes electric-flow {
-    0% {
-      stroke-dashoffset: 100;
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      stroke-dashoffset: 0;
-      opacity: 0;
-    }
-  }
-
-  .animate-electric-flow {
-    animation: electric-flow 2s ease-in-out infinite;
-  }
 }

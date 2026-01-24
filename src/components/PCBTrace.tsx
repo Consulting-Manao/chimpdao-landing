@@ -17,7 +17,6 @@ export interface PCBTraceProps {
   nodes: TraceNode[];
   junctionNodes?: TraceNode[];
   isActive: boolean;
-  direction?: "forward" | "backward";
   className?: string;
   viewBox?: string;
   filterId?: string;
@@ -30,14 +29,12 @@ const PCBTrace = ({
   nodes,
   junctionNodes = [],
   isActive,
-  direction = "forward",
   className = "",
   viewBox = "0 0 100 60",
   filterId = "traceGlow",
   duration = 0.6,
   baseDelay = 0,
 }: PCBTraceProps) => {
-  const isForward = direction === "forward";
 
   return (
     <svg viewBox={viewBox} className={className} style={{ overflow: "visible" }}>
@@ -67,8 +64,8 @@ const PCBTrace = ({
       {/* Animated paths */}
       {paths.map((path, i) => (
         <motion.path
-          key={`animated-${i}-${isActive}-${direction}`}
-          d={isForward ? path.d : path.d}
+          key={`animated-${i}-${isActive}`}
+          d={path.d}
           fill="none"
           stroke="hsl(var(--primary))"
           strokeWidth="2"
