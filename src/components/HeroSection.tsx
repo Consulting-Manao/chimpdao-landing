@@ -5,6 +5,7 @@ import ElectricTraces from "./ElectricTraces";
 import chimpLogo from "@/assets/chimp-logo.png";
 import iconShop from "@/assets/icon-group-25.png";
 import iconNft from "@/assets/icon-group-27.png";
+import appStoreBadge from "@/assets/app-store-badge.svg";
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -46,6 +47,10 @@ const HeroSection = () => {
                 <img
                   src={chimpLogo}
                   alt="ChimpDAO"
+                  width={128}
+                  height={128}
+                  loading="eager"
+                  fetchPriority="high"
                   className="w-32 h-32 md:w-44 md:h-44 object-contain drop-shadow-2xl"
                 />
               </motion.div>
@@ -95,7 +100,7 @@ const HeroSection = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3"
               >
-                <img src={iconShop} alt="" className="w-6 h-6 object-contain" />
+                <img src={iconShop} alt="" width={24} height={24} className="w-6 h-6 object-contain" />
                 Shop Merch
               </a>
             </Button>
@@ -111,7 +116,7 @@ const HeroSection = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3"
               >
-                <img src={iconNft} alt="" className="w-6 h-6 object-contain" />
+                <img src={iconNft} alt="" width={24} height={24} className="w-6 h-6 object-contain" />
                 View NFT Gallery
               </a>
             </Button>
@@ -128,8 +133,10 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <img
-              src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1768521600"
+              src={appStoreBadge}
               alt="Download on the App Store"
+              width={120}
+              height={40}
               className="h-14"
             />
           </motion.a>

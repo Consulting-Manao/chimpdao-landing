@@ -1,5 +1,3 @@
-import { motion } from "motion/react";
-
 interface ElectricTracesProps {
   className?: string;
   isActive?: boolean;
@@ -87,9 +85,9 @@ const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps
           />
         ))}
 
-        {/* Animated traces - pathLength animates 0→1, drawing from center outward */}
+        {/* Animated traces using CSS keyframes for GPU acceleration */}
         {isActive && traces.map((trace, index) => (
-          <motion.path
+          <path
             key={`active-${index}`}
             d={trace.path}
             fill="none"
@@ -98,60 +96,37 @@ const ElectricTraces = ({ className = "", isActive = true }: ElectricTracesProps
             strokeLinecap="round"
             strokeLinejoin="round"
             filter="url(#traceGlow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ 
-              pathLength: [0, 1, 1, 0],
-              opacity: [0, 1, 0.7, 0]
-            }}
-            transition={{
-              duration: 3.5,
-              delay: trace.delay,
-              ease: "easeOut",
-              repeat: Infinity,
-              times: [0, 0.35, 0.7, 1], // Quick flow out, hold at endpoints, fade back
-            }}
+            className="trace-animated"
+            pathLength="1"
+            style={{ animationDelay: `${trace.delay}s` }}
           />
         ))}
 
         {/* Junction nodes - appear as trace passes through */}
         {isActive && junctionNodes.map((node, index) => (
-          <motion.circle
+          <circle
             key={`junction-${index}`}
             cx={node.x}
             cy={node.y}
             r="2.5"
             fill="hsl(var(--primary))"
             filter="url(#traceGlow)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.8, 0.5, 0] }}
-            transition={{
-              duration: 3.5,
-              delay: node.delay,
-              ease: "easeOut",
-              repeat: Infinity,
-              times: [0, 0.35, 0.7, 1],
-            }}
+            className="node-animated"
+            style={{ animationDelay: `${node.delay}s` }}
           />
         ))}
 
         {/* Endpoint nodes - appear last and glow brightest */}
         {isActive && nodes.map((node, index) => (
-          <motion.circle
+          <circle
             key={`node-${index}`}
             cx={node.x}
             cy={node.y}
             r="3.5"
             fill="hsl(var(--primary))"
             filter="url(#traceGlow)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0.6, 0] }}
-            transition={{
-              duration: 3.5,
-              delay: node.delay,
-              ease: "easeOut",
-              repeat: Infinity,
-              times: [0, 0.4, 0.7, 1], // Appear after trace arrives, brightest glow
-            }}
+            className="node-animated"
+            style={{ animationDelay: `${node.delay}s` }}
           />
         ))}
       </svg>
