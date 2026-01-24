@@ -1,13 +1,17 @@
+import { lazy, Suspense } from "react";
 import HeroSection from "@/components/HeroSection";
-import HowItWorksSection from "@/components/HowItWorksSection";
-import Footer from "@/components/Footer";
+
+const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
+const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   return (
     <main className="min-h-screen bg-background">
       <HeroSection />
-      <HowItWorksSection />
-      <Footer />
+      <Suspense fallback={null}>
+        <HowItWorksSection />
+        <Footer />
+      </Suspense>
     </main>
   );
 };

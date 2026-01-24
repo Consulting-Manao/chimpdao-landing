@@ -32,6 +32,9 @@ const Footer = () => {
               <img
                 src={chimpJoystick}
                 alt="ChimpDAO"
+                width={40}
+                height={40}
+                loading="lazy"
                 className="w-10 h-10 object-contain"
               />
               <span className="text-lg font-bold text-foreground">ChimpDAO</span>
@@ -64,7 +67,7 @@ const Footer = () => {
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
               <span className="text-xs">Built on</span>
-              <img src={stellarSymbol} alt="Stellar" className="h-4 w-auto invert opacity-70 hover:opacity-100 transition-opacity" />
+              <img src={stellarSymbol} alt="Stellar" width={16} height={16} loading="lazy" className="h-4 w-auto invert opacity-70 hover:opacity-100 transition-opacity" />
             </a>
 
             {/* SCF badge */}
@@ -75,7 +78,7 @@ const Footer = () => {
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
               <span className="text-xs">Funded by</span>
-              <img src={scfLogo} alt="Stellar Community Fund" className="h-4 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              <img src={scfLogo} alt="Stellar Community Fund" width={48} height={16} loading="lazy" className="h-4 w-auto opacity-70 hover:opacity-100 transition-opacity" />
             </a>
 
             {/* Copyright */}

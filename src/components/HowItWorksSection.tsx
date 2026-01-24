@@ -177,6 +177,9 @@ const HowItWorksSection = () => {
                   <img
                     src={step.image}
                     alt={step.title}
+                    width={96}
+                    height={96}
+                    loading="lazy"
                     className="w-20 h-20 lg:w-24 lg:h-24 object-contain transition-all duration-300 hover:scale-110"
                     style={{
                       filter: hoveredIndex === index 
@@ -255,6 +258,9 @@ const HowItWorksSection = () => {
                   <img
                     src={step.image}
                     alt={step.title}
+                    width={64}
+                    height={64}
+                    loading="lazy"
                     className="w-16 h-16 object-contain transition-all duration-300"
                     style={{
                       filter: hoveredIndex === index 
