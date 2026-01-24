@@ -142,7 +142,7 @@ const HowItWorksSection = () => {
   };
 
   return (
-    <section className="py-12 md:py-16 relative" id="how-it-works">
+    <section ref={sectionRef} className="py-12 md:py-16 relative" id="how-it-works">
       <div className="container px-4">
         {/* Section header */}
         <motion.div
@@ -160,7 +160,7 @@ const HowItWorksSection = () => {
         </motion.div>
 
         {/* Desktop layout */}
-        <div ref={sectionRef} className="hidden md:block max-w-5xl mx-auto">
+        <div className="hidden md:block max-w-5xl mx-auto">
           {/* Row 1: Icons + Traces */}
           <div className="flex items-center justify-center mb-4">
             {steps.map((step, index) => (
