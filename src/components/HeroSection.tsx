@@ -23,7 +23,7 @@ const HeroSection = () => {
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           {/* Logo with PCB electric traces */}
           <motion.div
-            className="relative mb-12"
+            className="relative mb-20 md:mb-24"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
