@@ -22,65 +22,71 @@ const steps = [
   },
 ];
 
-// Unique trace patterns for each connector
+// Clean PCB-style trace patterns
 const tracePatterns = [
-  // Connector 1 (Merch → Phone): Converging pattern - multiple inputs merging
+  // Connector 1: Parallel horizontal lines - clean PCB style
   {
-    main: "M 0 30 L 80 30",
-    branches: [
-      { d: "M 0 14 L 20 14 L 32 30", delay: 0.1 },
-      { d: "M 0 46 L 20 46 L 32 30", delay: 0.15 },
-      { d: "M 48 30 L 60 18 L 80 18", delay: 0.2 },
-      { d: "M 48 30 L 60 42 L 80 42", delay: 0.25 },
+    paths: [
+      { d: "M 0 30 L 100 30", strokeWidth: 2.5, delay: 0 },
+      { d: "M 10 18 L 90 18", strokeWidth: 1.5, delay: 0.1 },
+      { d: "M 10 42 L 90 42", strokeWidth: 1.5, delay: 0.15 },
     ],
     nodes: [
-      { x: 0, y: 14, r: 2.5 },
-      { x: 0, y: 30, r: 3 },
-      { x: 0, y: 46, r: 2.5 },
-      { x: 32, y: 30, r: 4 },
-      { x: 48, y: 30, r: 3 },
-      { x: 80, y: 18, r: 2.5 },
-      { x: 80, y: 30, r: 3 },
-      { x: 80, y: 42, r: 2.5 },
+      { x: 0, y: 30, r: 4, order: 0 },
+      { x: 50, y: 30, r: 3, order: 3 },
+      { x: 100, y: 30, r: 4, order: 6 },
+      { x: 10, y: 18, r: 2.5, order: 1 },
+      { x: 90, y: 18, r: 2.5, order: 5 },
+      { x: 10, y: 42, r: 2.5, order: 2 },
+      { x: 90, y: 42, r: 2.5, order: 4 },
     ],
   },
-  // Connector 2 (Phone → NFT): Zigzag burst pattern - energy radiating out
+  // Connector 2: Main line with 45-degree branches at ends
   {
-    main: "M 0 30 L 25 30 L 40 15 L 55 30 L 80 30",
-    branches: [
-      { d: "M 40 15 L 40 5", delay: 0.1 },
-      { d: "M 25 30 L 15 45", delay: 0.15 },
-      { d: "M 55 30 L 65 45", delay: 0.2 },
-      { d: "M 40 15 L 55 5", delay: 0.25 },
+    paths: [
+      { d: "M 0 30 L 100 30", strokeWidth: 2.5, delay: 0 },
+      { d: "M 15 30 L 25 18", strokeWidth: 1.5, delay: 0.1 },
+      { d: "M 15 30 L 25 42", strokeWidth: 1.5, delay: 0.12 },
+      { d: "M 85 30 L 75 18", strokeWidth: 1.5, delay: 0.15 },
+      { d: "M 85 30 L 75 42", strokeWidth: 1.5, delay: 0.18 },
     ],
     nodes: [
-      { x: 0, y: 30, r: 3 },
-      { x: 25, y: 30, r: 2.5 },
-      { x: 40, y: 15, r: 4 },
-      { x: 40, y: 5, r: 2 },
-      { x: 55, y: 5, r: 2 },
-      { x: 55, y: 30, r: 2.5 },
-      { x: 15, y: 45, r: 2 },
-      { x: 65, y: 45, r: 2 },
-      { x: 80, y: 30, r: 3 },
+      { x: 0, y: 30, r: 4, order: 0 },
+      { x: 15, y: 30, r: 3, order: 1 },
+      { x: 25, y: 18, r: 2, order: 2 },
+      { x: 25, y: 42, r: 2, order: 2 },
+      { x: 85, y: 30, r: 3, order: 5 },
+      { x: 75, y: 18, r: 2, order: 4 },
+      { x: 75, y: 42, r: 2, order: 4 },
+      { x: 100, y: 30, r: 4, order: 6 },
     ],
   },
 ];
 
+type Direction = "forward" | "backward" | null;
+
 const PCBConnector = ({ 
   index, 
   isInView, 
-  isHovered 
+  direction 
 }: { 
   index: number; 
   isInView: boolean; 
-  isHovered: boolean;
+  direction: Direction;
 }) => {
   const pattern = tracePatterns[index] || tracePatterns[0];
+  const isHovered = direction !== null;
+  
+  // Sort nodes by order for sequential animation
+  const sortedNodes = [...pattern.nodes].sort((a, b) => {
+    const orderA = direction === "backward" ? (6 - a.order) : a.order;
+    const orderB = direction === "backward" ? (6 - b.order) : b.order;
+    return orderA - orderB;
+  });
   
   return (
-    <div className="hidden md:flex items-center justify-center w-24 lg:w-32 flex-shrink-0 self-center">
-      <svg viewBox="0 0 80 55" className="w-full h-14" style={{ overflow: "visible" }}>
+    <div className="hidden md:flex items-center justify-center w-32 lg:w-40 flex-shrink-0 self-center">
+      <svg viewBox="0 0 100 60" className="w-full h-16" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`connectorGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -91,83 +97,66 @@ const PCBConnector = ({
           </filter>
         </defs>
         
-        {/* Base main trace */}
-        <path
-          d={pattern.main}
-          fill="none"
-          stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        
-        {/* Base branch traces */}
-        {pattern.branches.map((branch, i) => (
+        {/* Base paths - always visible at low opacity */}
+        {pattern.paths.map((path, i) => (
           <path
-            key={i}
-            d={branch.d}
+            key={`base-${i}`}
+            d={path.d}
             fill="none"
             stroke="hsl(var(--primary) / 0.2)"
-            strokeWidth="1.5"
+            strokeWidth={path.strokeWidth}
             strokeLinecap="round"
             strokeLinejoin="round"
           />
         ))}
         
-        {/* Animated main trace */}
-        <motion.path
-          d={pattern.main}
-          fill="none"
-          stroke="hsl(var(--primary))"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter={`url(#connectorGlow-${index})`}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isInView ? { 
-            pathLength: 1, 
-            opacity: isHovered ? 1 : 0.6
-          } : { pathLength: 0, opacity: 0 }}
-          transition={{
-            pathLength: { duration: 0.6, delay: 0.3, ease: "easeOut" },
-            opacity: { duration: 0.2 }
-          }}
-        />
-        
-        {/* Animated branch traces */}
-        {pattern.branches.map((branch, i) => (
+        {/* Animated paths */}
+        {pattern.paths.map((path, i) => (
           <motion.path
-            key={i}
-            d={branch.d}
+            key={`animated-${i}-${direction}`}
+            d={path.d}
             fill="none"
             stroke="hsl(var(--primary))"
-            strokeWidth="1.5"
+            strokeWidth={path.strokeWidth}
             strokeLinecap="round"
             strokeLinejoin="round"
-            filter={`url(#connectorGlow-${index})`}
-            initial={{ pathLength: 0, opacity: 0 }}
+            filter={i === 0 ? `url(#connectorGlow-${index})` : undefined}
+            initial={{ 
+              pathLength: direction === "backward" ? 1 : 0, 
+              opacity: 0 
+            }}
             animate={isInView ? { 
-              pathLength: 1, 
-              opacity: isHovered ? 0.9 : 0.5
+              pathLength: direction === "backward" ? 0 : 1, 
+              opacity: isHovered ? 1 : 0.5
             } : { pathLength: 0, opacity: 0 }}
             transition={{
-              pathLength: { duration: 0.4, delay: 0.4 + branch.delay, ease: "easeOut" },
+              pathLength: { 
+                duration: 0.5, 
+                delay: direction ? path.delay : 0.3 + path.delay, 
+                ease: "easeOut" 
+              },
               opacity: { duration: 0.2 }
             }}
           />
         ))}
         
-        {/* Nodes at junctions and endpoints */}
-        {pattern.nodes.map((node, i) => (
+        {/* Nodes at junctions - animate in sequence based on direction */}
+        {sortedNodes.map((node, i) => (
           <motion.circle
-            key={i}
+            key={`node-${node.x}-${node.y}-${direction}`}
             cx={node.x}
             cy={node.y}
             r={node.r}
             fill="hsl(var(--primary))"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: isHovered ? 1 : 0.5 } : { opacity: 0 }}
-            transition={{ duration: 0.3, delay: isInView ? 0.5 + i * 0.03 : 0 }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={isInView ? { 
+              opacity: isHovered ? 1 : 0.4, 
+              scale: 1 
+            } : { opacity: 0, scale: 0.5 }}
+            transition={{ 
+              duration: 0.2, 
+              delay: direction ? 0.1 + i * 0.05 : 0.5 + i * 0.03 
+            }}
           />
         ))}
       </svg>
@@ -175,48 +164,68 @@ const PCBConnector = ({
   );
 };
 
-// Mobile trace patterns - vertical versions with unique designs
+// Mobile trace patterns - vertical versions
 const mobileTracePatterns = [
-  // Connector 1: Converging from sides
+  // Connector 1: Parallel vertical lines
   {
-    main: "M 20 0 L 20 40",
-    branches: [
-      { d: "M 5 8 L 12 8 L 20 18", delay: 0.1 },
-      { d: "M 35 8 L 28 8 L 20 18", delay: 0.15 },
+    paths: [
+      { d: "M 22 0 L 22 50", strokeWidth: 2.5, delay: 0 },
+      { d: "M 12 8 L 12 42", strokeWidth: 1.5, delay: 0.1 },
+      { d: "M 32 8 L 32 42", strokeWidth: 1.5, delay: 0.15 },
     ],
     nodes: [
-      { x: 5, y: 8, r: 2 },
-      { x: 35, y: 8, r: 2 },
-      { x: 20, y: 0, r: 2.5 },
-      { x: 20, y: 18, r: 3 },
-      { x: 20, y: 40, r: 2.5 },
+      { x: 22, y: 0, r: 3, order: 0 },
+      { x: 22, y: 25, r: 2.5, order: 3 },
+      { x: 22, y: 50, r: 3, order: 6 },
+      { x: 12, y: 8, r: 2, order: 1 },
+      { x: 12, y: 42, r: 2, order: 5 },
+      { x: 32, y: 8, r: 2, order: 2 },
+      { x: 32, y: 42, r: 2, order: 4 },
     ],
   },
-  // Connector 2: Zigzag burst
+  // Connector 2: Main line with 45-degree branches
   {
-    main: "M 20 0 L 20 12 L 28 20 L 20 28 L 20 40",
-    branches: [
-      { d: "M 28 20 L 38 20", delay: 0.1 },
-      { d: "M 28 20 L 35 28", delay: 0.15 },
+    paths: [
+      { d: "M 22 0 L 22 50", strokeWidth: 2.5, delay: 0 },
+      { d: "M 22 10 L 12 18", strokeWidth: 1.5, delay: 0.1 },
+      { d: "M 22 10 L 32 18", strokeWidth: 1.5, delay: 0.12 },
+      { d: "M 22 40 L 12 32", strokeWidth: 1.5, delay: 0.15 },
+      { d: "M 22 40 L 32 32", strokeWidth: 1.5, delay: 0.18 },
     ],
     nodes: [
-      { x: 20, y: 0, r: 2.5 },
-      { x: 20, y: 12, r: 2 },
-      { x: 28, y: 20, r: 3 },
-      { x: 38, y: 20, r: 2 },
-      { x: 35, y: 28, r: 2 },
-      { x: 20, y: 28, r: 2 },
-      { x: 20, y: 40, r: 2.5 },
+      { x: 22, y: 0, r: 3, order: 0 },
+      { x: 22, y: 10, r: 2.5, order: 1 },
+      { x: 12, y: 18, r: 2, order: 2 },
+      { x: 32, y: 18, r: 2, order: 2 },
+      { x: 22, y: 40, r: 2.5, order: 5 },
+      { x: 12, y: 32, r: 2, order: 4 },
+      { x: 32, y: 32, r: 2, order: 4 },
+      { x: 22, y: 50, r: 3, order: 6 },
     ],
   },
 ];
 
-const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: boolean }) => {
+const MobilePCBConnector = ({ 
+  index, 
+  isInView,
+  direction 
+}: { 
+  index: number; 
+  isInView: boolean;
+  direction: Direction;
+}) => {
   const pattern = mobileTracePatterns[index] || mobileTracePatterns[0];
+  const isHovered = direction !== null;
+  
+  const sortedNodes = [...pattern.nodes].sort((a, b) => {
+    const orderA = direction === "backward" ? (6 - a.order) : a.order;
+    const orderB = direction === "backward" ? (6 - b.order) : b.order;
+    return orderA - orderB;
+  });
   
   return (
-    <div className="flex md:hidden items-center justify-center h-12 my-2">
-      <svg viewBox="0 0 45 45" className="h-full w-10" style={{ overflow: "visible" }}>
+    <div className="flex md:hidden items-center justify-center h-14 my-2">
+      <svg viewBox="0 0 44 50" className="h-full w-11" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`mobileGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -227,71 +236,59 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
           </filter>
         </defs>
         
-        {/* Base main trace */}
-        <path
-          d={pattern.main}
-          fill="none"
-          stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        
-        {/* Base branches */}
-        {pattern.branches.map((branch, i) => (
+        {/* Base paths */}
+        {pattern.paths.map((path, i) => (
           <path
-            key={i}
-            d={branch.d}
+            key={`base-${i}`}
+            d={path.d}
             fill="none"
             stroke="hsl(var(--primary) / 0.2)"
-            strokeWidth="1.5"
+            strokeWidth={path.strokeWidth}
             strokeLinecap="round"
             strokeLinejoin="round"
           />
         ))}
         
-        {/* Animated main trace */}
-        <motion.path
-          d={pattern.main}
-          fill="none"
-          stroke="hsl(var(--primary))"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter={`url(#mobileGlow-${index})`}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isInView ? { pathLength: 1, opacity: 0.6 } : { pathLength: 0, opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-        />
-        
-        {/* Animated branches */}
-        {pattern.branches.map((branch, i) => (
+        {/* Animated paths */}
+        {pattern.paths.map((path, i) => (
           <motion.path
-            key={i}
-            d={branch.d}
+            key={`animated-${i}-${direction}`}
+            d={path.d}
             fill="none"
             stroke="hsl(var(--primary))"
-            strokeWidth="1.5"
+            strokeWidth={path.strokeWidth}
             strokeLinecap="round"
             strokeLinejoin="round"
-            filter={`url(#mobileGlow-${index})`}
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={isInView ? { pathLength: 1, opacity: 0.5 } : { pathLength: 0, opacity: 0 }}
-            transition={{ duration: 0.3, delay: 0.4 + branch.delay, ease: "easeOut" }}
+            filter={i === 0 ? `url(#mobileGlow-${index})` : undefined}
+            initial={{ 
+              pathLength: direction === "backward" ? 1 : 0, 
+              opacity: 0 
+            }}
+            animate={isInView ? { 
+              pathLength: direction === "backward" ? 0 : 1, 
+              opacity: isHovered ? 1 : 0.5
+            } : { pathLength: 0, opacity: 0 }}
+            transition={{
+              pathLength: { duration: 0.4, delay: direction ? path.delay : 0.3 + path.delay, ease: "easeOut" },
+              opacity: { duration: 0.2 }
+            }}
           />
         ))}
         
         {/* Nodes */}
-        {pattern.nodes.map((node, i) => (
+        {sortedNodes.map((node, i) => (
           <motion.circle
-            key={i}
+            key={`node-${node.x}-${node.y}-${direction}`}
             cx={node.x}
             cy={node.y}
             r={node.r}
             fill="hsl(var(--primary))"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 0.6 } : { opacity: 0 }}
-            transition={{ duration: 0.3, delay: 0.5 + i * 0.05 }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={isInView ? { 
+              opacity: isHovered ? 1 : 0.5, 
+              scale: 1 
+            } : { opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.2, delay: direction ? 0.1 + i * 0.04 : 0.4 + i * 0.04 }}
           />
         ))}
       </svg>
@@ -319,7 +316,7 @@ const StepCard = ({
       onMouseEnter={() => onHoverChange(true)}
       onMouseLeave={() => onHoverChange(false)}
     >
-      {/* Icon container - CSS hover only, no motion scale to avoid filter artifacts */}
+      {/* Icon container */}
       <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4 cursor-pointer group">
         <img
           src={step.image}
@@ -349,13 +346,25 @@ const HowItWorksSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  // Calculate direction for each connector based on which icon is hovered
+  const getConnectorDirection = (connectorIndex: number): Direction => {
+    if (hoveredIndex === null) return null;
+    
+    const leftIconIndex = connectorIndex;
+    const rightIconIndex = connectorIndex + 1;
+    
+    if (hoveredIndex === leftIconIndex) return "forward";
+    if (hoveredIndex === rightIconIndex) return "backward";
+    return null;
+  };
+
   return (
     <section className="py-12 md:py-16 relative" id="how-it-works">
       <div className="container px-4">
         {/* Section header */}
-      <motion.div
-        ref={sectionRef}
-        className="text-center mb-10 md:mb-14"
+        <motion.div
+          ref={sectionRef}
+          className="text-center mb-10 md:mb-14"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
@@ -370,7 +379,7 @@ const HowItWorksSection = () => {
 
         {/* Desktop: 3-row structure for perfect alignment */}
         <div className="hidden md:block max-w-5xl mx-auto">
-          {/* Row 1: Icons + Traces - all perfectly aligned on same horizontal axis */}
+          {/* Row 1: Icons + Traces */}
           <div className="flex items-center justify-center mb-4">
             {steps.map((step, index) => (
               <div key={step.title} className="flex items-center">
@@ -397,19 +406,19 @@ const HowItWorksSection = () => {
                   />
                 </motion.div>
                 
-                {/* Trace connector */}
+                {/* Trace connector with direction */}
                 {index < steps.length - 1 && (
                   <PCBConnector 
                     index={index} 
                     isInView={isInView} 
-                    isHovered={hoveredIndex === index || hoveredIndex === index + 1}
+                    direction={getConnectorDirection(index)}
                   />
                 )}
               </div>
             ))}
           </div>
 
-          {/* Row 2: Titles - centered under each icon */}
+          {/* Row 2: Titles */}
           <div className="flex justify-between max-w-3xl mx-auto mb-2">
             {steps.map((step, index) => (
               <motion.h3
@@ -424,7 +433,7 @@ const HowItWorksSection = () => {
             ))}
           </div>
 
-          {/* Row 3: Descriptions - centered under each title */}
+          {/* Row 3: Descriptions */}
           <div className="flex justify-between max-w-3xl mx-auto">
             {steps.map((step, index) => (
               <motion.p
@@ -440,7 +449,7 @@ const HowItWorksSection = () => {
           </div>
         </div>
 
-        {/* Vertical flow on mobile */}
+        {/* Vertical flow on mobile with directional animations */}
         <div className="flex md:hidden flex-col items-center gap-0">
           {steps.map((step, index) => (
             <div key={step.title} className="flex flex-col items-center">
@@ -448,10 +457,14 @@ const HowItWorksSection = () => {
                 step={step} 
                 index={index} 
                 isInView={isInView}
-                onHoverChange={() => {}}
+                onHoverChange={(hovered) => setHoveredIndex(hovered ? index : null)}
               />
               {index < steps.length - 1 && (
-                <MobilePCBConnector index={index} isInView={isInView} />
+                <MobilePCBConnector 
+                  index={index} 
+                  isInView={isInView} 
+                  direction={getConnectorDirection(index)}
+                />
               )}
             </div>
           ))}
