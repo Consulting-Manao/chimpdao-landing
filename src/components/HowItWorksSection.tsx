@@ -22,6 +22,51 @@ const steps = [
   },
 ];
 
+// Unique trace patterns for each connector
+const tracePatterns = [
+  // Connector 1 (Merch → Phone): Converging pattern - multiple inputs merging
+  {
+    main: "M 0 30 L 80 30",
+    branches: [
+      { d: "M 0 14 L 20 14 L 32 30", delay: 0.1 },
+      { d: "M 0 46 L 20 46 L 32 30", delay: 0.15 },
+      { d: "M 48 30 L 60 18 L 80 18", delay: 0.2 },
+      { d: "M 48 30 L 60 42 L 80 42", delay: 0.25 },
+    ],
+    nodes: [
+      { x: 0, y: 14, r: 2.5 },
+      { x: 0, y: 30, r: 3 },
+      { x: 0, y: 46, r: 2.5 },
+      { x: 32, y: 30, r: 4 },
+      { x: 48, y: 30, r: 3 },
+      { x: 80, y: 18, r: 2.5 },
+      { x: 80, y: 30, r: 3 },
+      { x: 80, y: 42, r: 2.5 },
+    ],
+  },
+  // Connector 2 (Phone → NFT): Zigzag burst pattern - energy radiating out
+  {
+    main: "M 0 30 L 25 30 L 40 15 L 55 30 L 80 30",
+    branches: [
+      { d: "M 40 15 L 40 5", delay: 0.1 },
+      { d: "M 25 30 L 15 45", delay: 0.15 },
+      { d: "M 55 30 L 65 45", delay: 0.2 },
+      { d: "M 40 15 L 55 5", delay: 0.25 },
+    ],
+    nodes: [
+      { x: 0, y: 30, r: 3 },
+      { x: 25, y: 30, r: 2.5 },
+      { x: 40, y: 15, r: 4 },
+      { x: 40, y: 5, r: 2 },
+      { x: 55, y: 5, r: 2 },
+      { x: 55, y: 30, r: 2.5 },
+      { x: 15, y: 45, r: 2 },
+      { x: 65, y: 45, r: 2 },
+      { x: 80, y: 30, r: 3 },
+    ],
+  },
+];
+
 const PCBConnector = ({ 
   index, 
   isInView, 
@@ -31,9 +76,11 @@ const PCBConnector = ({
   isInView: boolean; 
   isHovered: boolean;
 }) => {
+  const pattern = tracePatterns[index] || tracePatterns[0];
+  
   return (
-    <div className="hidden md:flex items-center justify-center w-20 lg:w-28 flex-shrink-0 self-center">
-      <svg viewBox="0 0 80 60" className="w-full h-16" style={{ overflow: "visible" }}>
+    <div className="hidden md:flex items-center justify-center w-24 lg:w-32 flex-shrink-0 self-center">
+      <svg viewBox="0 0 80 55" className="w-full h-14" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`connectorGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -44,169 +91,132 @@ const PCBConnector = ({
           </filter>
         </defs>
         
-        {/* Base traces - main horizontal with branches */}
+        {/* Base main trace */}
         <path
-          d="M 0 30 L 20 30 L 40 30 L 60 30 L 80 30"
+          d={pattern.main}
           fill="none"
           stroke="hsl(var(--primary) / 0.2)"
           strokeWidth="2.5"
           strokeLinecap="round"
-        />
-        {/* Upper branch */}
-        <path
-          d="M 25 30 L 35 18 L 50 18"
-          fill="none"
-          stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
           strokeLinejoin="round"
         />
-        {/* Lower branch */}
-        <path
-          d="M 55 30 L 45 42 L 30 42"
-          fill="none"
-          stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        
+        {/* Base branch traces */}
+        {pattern.branches.map((branch, i) => (
+          <path
+            key={i}
+            d={branch.d}
+            fill="none"
+            stroke="hsl(var(--primary) / 0.2)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ))}
         
         {/* Animated main trace */}
         <motion.path
-          d="M 0 30 L 20 30 L 40 30 L 60 30 L 80 30"
+          d={pattern.main}
           fill="none"
           stroke="hsl(var(--primary))"
           strokeWidth="2.5"
           strokeLinecap="round"
-          filter={`url(#connectorGlow-${index})`}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isInView ? { 
-            pathLength: 1, 
-            opacity: isHovered ? 1 : 0.5
-          } : { pathLength: 0, opacity: 0 }}
-          transition={{
-            pathLength: { duration: 0.6, delay: 0.3 + index * 0.2, ease: "easeOut" },
-            opacity: { duration: 0.2 }
-          }}
-        />
-        
-        {/* Animated upper branch */}
-        <motion.path
-          d="M 25 30 L 35 18 L 50 18"
-          fill="none"
-          stroke="hsl(var(--primary))"
-          strokeWidth="1.5"
-          strokeLinecap="round"
           strokeLinejoin="round"
           filter={`url(#connectorGlow-${index})`}
           initial={{ pathLength: 0, opacity: 0 }}
           animate={isInView ? { 
             pathLength: 1, 
-            opacity: isHovered ? 0.9 : 0.4
+            opacity: isHovered ? 1 : 0.6
           } : { pathLength: 0, opacity: 0 }}
           transition={{
-            pathLength: { duration: 0.4, delay: 0.5 + index * 0.2, ease: "easeOut" },
+            pathLength: { duration: 0.6, delay: 0.3, ease: "easeOut" },
             opacity: { duration: 0.2 }
           }}
         />
         
-        {/* Animated lower branch */}
-        <motion.path
-          d="M 55 30 L 45 42 L 30 42"
-          fill="none"
-          stroke="hsl(var(--primary))"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter={`url(#connectorGlow-${index})`}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isInView ? { 
-            pathLength: 1, 
-            opacity: isHovered ? 0.9 : 0.4
-          } : { pathLength: 0, opacity: 0 }}
-          transition={{
-            pathLength: { duration: 0.4, delay: 0.6 + index * 0.2, ease: "easeOut" },
-            opacity: { duration: 0.2 }
-          }}
-        />
+        {/* Animated branch traces */}
+        {pattern.branches.map((branch, i) => (
+          <motion.path
+            key={i}
+            d={branch.d}
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter={`url(#connectorGlow-${index})`}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={isInView ? { 
+              pathLength: 1, 
+              opacity: isHovered ? 0.9 : 0.5
+            } : { pathLength: 0, opacity: 0 }}
+            transition={{
+              pathLength: { duration: 0.4, delay: 0.4 + branch.delay, ease: "easeOut" },
+              opacity: { duration: 0.2 }
+            }}
+          />
+        ))}
         
-        {/* Main line nodes - no filter to avoid square artifacts */}
-        <motion.circle
-          cx="0"
-          cy="30"
-          r="3"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: isHovered ? 1 : 0.4 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.4 + index * 0.2 : 0 }}
-        />
-        <motion.circle
-          cx="40"
-          cy="30"
-          r="3.5"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: isHovered ? 1 : 0.5 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.5 + index * 0.2 : 0 }}
-        />
-        <motion.circle
-          cx="80"
-          cy="30"
-          r="3"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: isHovered ? 1 : 0.4 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.6 + index * 0.2 : 0 }}
-        />
-        
-        {/* Branch endpoint nodes - no filter to avoid square artifacts */}
-        <motion.circle
-          cx="50"
-          cy="18"
-          r="2"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: isHovered ? 0.9 : 0.3 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.7 + index * 0.2 : 0 }}
-        />
-        <motion.circle
-          cx="30"
-          cy="42"
-          r="2"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: isHovered ? 0.9 : 0.3 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.8 + index * 0.2 : 0 }}
-        />
-        
-        {/* Junction nodes at bends - no filter to avoid square artifacts */}
-        <motion.circle
-          cx="25"
-          cy="30"
-          r="1.5"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: isHovered ? 0.8 : 0.3 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.55 + index * 0.2 : 0 }}
-        />
-        <motion.circle
-          cx="55"
-          cy="30"
-          r="1.5"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: isHovered ? 0.8 : 0.3 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: isInView ? 0.65 + index * 0.2 : 0 }}
-        />
+        {/* Nodes at junctions and endpoints */}
+        {pattern.nodes.map((node, i) => (
+          <motion.circle
+            key={i}
+            cx={node.x}
+            cy={node.y}
+            r={node.r}
+            fill="hsl(var(--primary))"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: isHovered ? 1 : 0.5 } : { opacity: 0 }}
+            transition={{ duration: 0.3, delay: isInView ? 0.5 + i * 0.03 : 0 }}
+          />
+        ))}
       </svg>
     </div>
   );
 };
 
+// Mobile trace patterns - vertical versions with unique designs
+const mobileTracePatterns = [
+  // Connector 1: Converging from sides
+  {
+    main: "M 20 0 L 20 40",
+    branches: [
+      { d: "M 5 8 L 12 8 L 20 18", delay: 0.1 },
+      { d: "M 35 8 L 28 8 L 20 18", delay: 0.15 },
+    ],
+    nodes: [
+      { x: 5, y: 8, r: 2 },
+      { x: 35, y: 8, r: 2 },
+      { x: 20, y: 0, r: 2.5 },
+      { x: 20, y: 18, r: 3 },
+      { x: 20, y: 40, r: 2.5 },
+    ],
+  },
+  // Connector 2: Zigzag burst
+  {
+    main: "M 20 0 L 20 12 L 28 20 L 20 28 L 20 40",
+    branches: [
+      { d: "M 28 20 L 38 20", delay: 0.1 },
+      { d: "M 28 20 L 35 28", delay: 0.15 },
+    ],
+    nodes: [
+      { x: 20, y: 0, r: 2.5 },
+      { x: 20, y: 12, r: 2 },
+      { x: 28, y: 20, r: 3 },
+      { x: 38, y: 20, r: 2 },
+      { x: 35, y: 28, r: 2 },
+      { x: 20, y: 28, r: 2 },
+      { x: 20, y: 40, r: 2.5 },
+    ],
+  },
+];
+
 const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: boolean }) => {
+  const pattern = mobileTracePatterns[index] || mobileTracePatterns[0];
+  
   return (
-    <div className="flex md:hidden items-center justify-center h-10 my-1">
-      <svg viewBox="0 0 40 40" className="h-full w-8" style={{ overflow: "visible" }}>
+    <div className="flex md:hidden items-center justify-center h-12 my-2">
+      <svg viewBox="0 0 45 45" className="h-full w-10" style={{ overflow: "visible" }}>
         <defs>
           <filter id={`mobileGlow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -217,100 +227,73 @@ const MobilePCBConnector = ({ index, isInView }: { index: number; isInView: bool
           </filter>
         </defs>
         
-        {/* Base traces - vertical with branches */}
+        {/* Base main trace */}
         <path
-          d="M 20 0 L 20 20 L 20 40"
+          d={pattern.main}
           fill="none"
           stroke="hsl(var(--primary) / 0.2)"
           strokeWidth="2.5"
           strokeLinecap="round"
-        />
-        {/* Left branch */}
-        <path
-          d="M 20 15 L 10 22 L 5 22"
-          fill="none"
-          stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
           strokeLinejoin="round"
         />
-        {/* Right branch */}
-        <path
-          d="M 20 25 L 30 18 L 35 18"
-          fill="none"
-          stroke="hsl(var(--primary) / 0.2)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        
+        {/* Base branches */}
+        {pattern.branches.map((branch, i) => (
+          <path
+            key={i}
+            d={branch.d}
+            fill="none"
+            stroke="hsl(var(--primary) / 0.2)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ))}
         
         {/* Animated main trace */}
         <motion.path
-          d="M 20 0 L 20 20 L 20 40"
+          d={pattern.main}
           fill="none"
           stroke="hsl(var(--primary))"
           strokeWidth="2.5"
           strokeLinecap="round"
+          strokeLinejoin="round"
           filter={`url(#mobileGlow-${index})`}
           initial={{ pathLength: 0, opacity: 0 }}
           animate={isInView ? { pathLength: 1, opacity: 0.6 } : { pathLength: 0, opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 + index * 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
         />
         
         {/* Animated branches */}
-        <motion.path
-          d="M 20 15 L 10 22 L 5 22"
-          fill="none"
-          stroke="hsl(var(--primary))"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter={`url(#mobileGlow-${index})`}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isInView ? { pathLength: 1, opacity: 0.5 } : { pathLength: 0, opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0.5 + index * 0.2, ease: "easeOut" }}
-        />
-        <motion.path
-          d="M 20 25 L 30 18 L 35 18"
-          fill="none"
-          stroke="hsl(var(--primary))"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter={`url(#mobileGlow-${index})`}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isInView ? { pathLength: 1, opacity: 0.5 } : { pathLength: 0, opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0.6 + index * 0.2, ease: "easeOut" }}
-        />
+        {pattern.branches.map((branch, i) => (
+          <motion.path
+            key={i}
+            d={branch.d}
+            fill="none"
+            stroke="hsl(var(--primary))"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter={`url(#mobileGlow-${index})`}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={isInView ? { pathLength: 1, opacity: 0.5 } : { pathLength: 0, opacity: 0 }}
+            transition={{ duration: 0.3, delay: 0.4 + branch.delay, ease: "easeOut" }}
+          />
+        ))}
         
-        {/* Nodes - no filter to avoid square artifacts */}
-        <motion.circle
-          cx="20"
-          cy="20"
-          r="3"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 0.7 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0.5 + index * 0.2 }}
-        />
-        <motion.circle
-          cx="5"
-          cy="22"
-          r="1.5"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 0.5 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0.6 + index * 0.2 }}
-        />
-        <motion.circle
-          cx="35"
-          cy="18"
-          r="1.5"
-          fill="hsl(var(--primary))"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 0.5 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0.7 + index * 0.2 }}
-        />
+        {/* Nodes */}
+        {pattern.nodes.map((node, i) => (
+          <motion.circle
+            key={i}
+            cx={node.x}
+            cy={node.y}
+            r={node.r}
+            fill="hsl(var(--primary))"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 0.6 } : { opacity: 0 }}
+            transition={{ duration: 0.3, delay: 0.5 + i * 0.05 }}
+          />
+        ))}
       </svg>
     </div>
   );
