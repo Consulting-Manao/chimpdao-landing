@@ -1,6 +1,7 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { Check, ArrowRight } from "lucide-react";
+import { useSound } from "@/hooks/useSound";
 
 const silverbackOptions = [
   {
@@ -27,6 +28,7 @@ const corePrinciples = ["Premium materials", "Transparent costs", "Professional 
 const PartnershipsSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10%" });
+  const { play: playGorillaSound } = useSound('/sounds/gorilla-chest.m4a', 0.6);
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 relative" id="partnerships">
@@ -160,6 +162,7 @@ const PartnershipsSection = () => {
         >
           <a
             href="mailto:legal@consulting-manao.com"
+            onClick={playGorillaSound}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.5)]"
           >
             Let's Collaborate
