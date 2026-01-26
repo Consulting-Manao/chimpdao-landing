@@ -9,19 +9,21 @@ const steps = [
   {
     image: tshirtMerch,
     title: "Buy NFC Merch",
-    description: "Get exclusive merch with embedded NFC chips",
+    description: "Premium apparel with embedded NFC chips cryptographically bound to your NFT",
   },
   {
     image: nfcChip,
-    title: "Tap Your Phone",
-    description: "Scan the NFC chip with your smartphone",
+    title: "Tap & Verify",
+    description: "Scan the chip to authenticate ownership and access the Chimp app",
   },
   {
     image: chimpLogo,
-    title: "Reveal Your NFT",
-    description: "Claim your NFT on the Stellar blockchain",
+    title: "Claim Your NFT",
+    description: "Your NFT is minted on Stellar, permanently linked to your physical item",
   },
 ];
+
+const valuePropositionSubtitle = "Each ChimpDAO NFT is inseparably linked to its physical item via tamper-proof NFC technology. Ownership transfers with the NFT, granting community access and commercial usage rights.";
 
 // Hero-style asymmetric branching traces - Left connector
 const leftTracePaths = [
@@ -99,6 +101,7 @@ const HowItWorksSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10%" });
   const [hasPlayedInitial, setHasPlayedInitial] = useState(false);
+  const [isAnimationCooldown, setIsAnimationCooldown] = useState(true);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeTraces, setActiveTraces] = useState<{
     left: boolean;
@@ -115,8 +118,19 @@ const HowItWorksSection = () => {
     }
   }, [isInView, hasPlayedInitial]);
 
+  // Enable hover interactions after initial animation cooldown
+  useEffect(() => {
+    if (hasPlayedInitial) {
+      const timer = setTimeout(() => setIsAnimationCooldown(false), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [hasPlayedInitial]);
+
   // Handle icon hover - enhances illumination, returns to default on leave
   const handleHover = (index: number, hovered: boolean) => {
+    // Skip hover interactions during cooldown period
+    if (isAnimationCooldown) return;
+
     setHoveredIndex(hovered ? index : null);
 
     if (!hovered) {
@@ -236,6 +250,16 @@ const HowItWorksSection = () => {
               </motion.p>
             ))}
           </div>
+
+          {/* Value proposition subtitle */}
+          <motion.p
+            className="text-center text-sm md:text-base text-muted-foreground max-w-2xl mx-auto mt-10"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            {valuePropositionSubtitle}
+          </motion.p>
         </div>
 
         {/* Mobile layout */}

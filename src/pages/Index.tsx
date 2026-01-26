@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import HeroSection from "@/components/HeroSection";
 
 const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
+const PartnershipsSection = lazy(() => import("@/components/PartnershipsSection"));
 const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
@@ -10,6 +11,7 @@ const Index = () => {
       <HeroSection />
       <Suspense fallback={null}>
         <HowItWorksSection />
+        <PartnershipsSection />
         <Footer />
       </Suspense>
     </main>
