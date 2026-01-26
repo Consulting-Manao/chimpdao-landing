@@ -91,7 +91,6 @@ const HeroSection = () => {
           >
             <Button
               asChild
-              size="lg"
               className="text-base px-5 py-2.5 min-w-[180px] bg-primary text-primary-foreground hover:bg-primary/90 electric-glow-hover transition-all duration-300"
             >
               <a
@@ -107,7 +106,6 @@ const HeroSection = () => {
 
             <Button
               asChild
-              size="lg"
               className="text-base px-5 py-2.5 min-w-[180px] bg-chimp-purple/20 text-chimp-purple border-2 border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
             >
               <a
