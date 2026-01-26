@@ -9,7 +9,7 @@ const steps = [
   {
     image: tshirtMerch,
     title: "Buy NFC Merch",
-    description: "Premium apparel with embedded NFC chips cryptographically bound to your NFT",
+    description: "Premium apparel with embedded NFC chips ready for blockchain verification",
   },
   {
     image: nfcChip,
