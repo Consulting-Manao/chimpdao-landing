@@ -84,7 +84,7 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -92,7 +92,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              className="text-lg px-8 py-6 bg-primary text-primary-foreground hover:bg-primary/90 electric-glow-hover transition-all duration-300"
+              className="text-lg px-8 py-6 min-w-[200px] bg-primary text-primary-foreground hover:bg-primary/90 electric-glow-hover transition-all duration-300"
             >
               <a
                 href="https://shop.chimpdao.xyz"
@@ -108,7 +108,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              className="text-lg px-8 py-6 bg-chimp-purple/20 text-chimp-purple border-2 border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
+              className="text-lg px-8 py-6 min-w-[200px] bg-chimp-purple/20 text-chimp-purple border-2 border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
             >
               <a
                 href="https://nft.chimpdao.xyz"
@@ -127,7 +127,7 @@ const HeroSection = () => {
             href="https://apps.apple.com/us/app/chimpdao/id6757618362?itscg=30200&itsct=apps_box_badge&mttnsubad=6757618362"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex justify-center lg:justify-start hover:opacity-80 transition-opacity"
+            className="flex justify-center hover:opacity-80 transition-opacity"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.5 }}
