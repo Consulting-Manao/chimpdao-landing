@@ -20,29 +20,16 @@ const silverbackOptions = [
   },
 ];
 
-const bonoboFeatures = [
-  "Production & sourcing by Chi//mp",
-  "Optional design service",
-  "Delivered to your destination",
-];
+const bonoboFeatures = ["Production & sourcing by Chi//mp", "Optional design service", "Delivered to your destination"];
 
-const corePrinciples = [
-  "Premium materials",
-  "Transparent costs",
-  "Professional fulfillment",
-  "NFC + NFT integration",
-];
+const corePrinciples = ["Premium materials", "Transparent costs", "Professional fulfillment", "NFC + NFT integration"];
 
 const PartnershipsSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10%" });
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-16 md:py-24 relative"
-      id="partnerships"
-    >
+    <section ref={sectionRef} className="py-16 md:py-24 relative" id="partnerships">
       <div className="container px-4">
         {/* Section header */}
         <motion.div
@@ -78,18 +65,12 @@ const PartnershipsSection = () => {
             </div>
 
             <div className="mb-6">
-              <h3 className="text-2xl font-bold text-foreground mb-1">
-                Silverback
-              </h3>
+              <h3 className="text-2xl font-bold text-foreground mb-1">Silverback</h3>
               <p className="text-primary font-medium">Public Drops</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Sold on the Chi//mp Shop
-              </p>
+              <p className="text-sm text-muted-foreground mt-2">Sold on the Chi//mp Shop</p>
             </div>
 
-            <p className="text-sm text-muted-foreground mb-4">
-              Choose your collaboration model:
-            </p>
+            <p className="text-sm text-muted-foreground mb-4">Choose your collaboration model:</p>
 
             <div className="space-y-4">
               {silverbackOptions.map((option, index) => (
@@ -102,12 +83,8 @@ const PartnershipsSection = () => {
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h4 className="font-semibold text-foreground">
-                        {option.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        {option.description}
-                      </p>
+                      <h4 className="font-semibold text-foreground">{option.name}</h4>
+                      <p className="text-sm text-muted-foreground">{option.description}</p>
                     </div>
                     <span className="text-xs text-primary font-medium whitespace-nowrap bg-primary/10 px-2 py-1 rounded">
                       {option.value}
@@ -127,20 +104,12 @@ const PartnershipsSection = () => {
             whileHover={{ scale: 1.02, borderColor: "hsl(var(--border) / 0.8)" }}
           >
             <div className="mb-6">
-              <h3 className="text-2xl font-bold text-foreground mb-1">
-                Bonobo
-              </h3>
-              <p className="text-muted-foreground font-medium">
-                Private Collection
-              </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                B2B / Events / Internal Use
-              </p>
+              <h3 className="text-2xl font-bold text-foreground mb-1">Bonobo</h3>
+              <p className="text-muted-foreground font-medium">Private Collection</p>
+              <p className="text-sm text-muted-foreground mt-2">B2B / Events / Internal Use</p>
             </div>
 
-            <p className="text-sm text-muted-foreground mb-4">
-              Your merch, your usage
-            </p>
+            <p className="text-sm text-muted-foreground mb-4">Your merch, your usage</p>
 
             <div className="space-y-3 mb-6">
               {bonoboFeatures.map((feature, index) => (
@@ -158,18 +127,12 @@ const PartnershipsSection = () => {
             </div>
 
             <div className="p-4 rounded-lg bg-background/50 border border-border">
-              <p className="text-sm text-muted-foreground mb-2">
-                Fixed pricing based on:
-              </p>
+              <p className="text-sm text-muted-foreground mb-2">Fixed pricing based on:</p>
               <ul className="text-sm text-foreground space-y-1">
                 <li>• Quantities</li>
                 <li>• Materials & finishing</li>
               </ul>
             </div>
-
-            <p className="text-xs text-muted-foreground mt-4 italic">
-              Ideal for conferences, teams, ambassador programs
-            </p>
           </motion.div>
         </div>
 
@@ -181,13 +144,8 @@ const PartnershipsSection = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           {corePrinciples.map((principle, index) => (
-            <div
-              key={principle}
-              className="flex items-center gap-2 text-sm text-muted-foreground"
-            >
-              {index > 0 && (
-                <span className="hidden md:inline text-border">|</span>
-              )}
+            <div key={principle} className="flex items-center gap-2 text-sm text-muted-foreground">
+              {index > 0 && <span className="hidden md:inline text-border">|</span>}
               <span>{principle}</span>
             </div>
           ))}
