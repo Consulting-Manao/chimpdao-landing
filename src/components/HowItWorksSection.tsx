@@ -9,21 +9,22 @@ const steps = [
   {
     image: tshirtMerch,
     title: "Buy NFC Merch",
-    description: "Premium apparel with embedded NFC chips ready for blockchain verification",
+    description: "Premium apparel with embedded NFC chips",
   },
   {
     image: nfcChip,
     title: "Tap & Verify",
-    description: "Scan to prove you physically hold the item and verify authentic ownership",
+    description: "Scan to prove you physically hold the item and take ownership",
   },
   {
     image: chimpLogo,
     title: "Claim Your NFT",
-    description: "Your NFT is minted on Stellar, permanently linked to your physical item",
+    description: "Your NFT is claimed, permanently linking your physical item and Stellar identity",
   },
 ];
 
-const valuePropositionSubtitle = "Each ChimpDAO NFT is inseparably linked to its physical item via tamper-proof NFC technology. Ownership transfers with the NFT, granting community access and commercial usage rights.";
+const valuePropositionSubtitle =
+  "Each ChimpDAO NFT is inseparably linked to its physical item via tamper-proof NFC technology. Ownership transfers with the NFT, granting community access and commercial usage rights.";
 
 // Hero-style asymmetric branching traces - Left connector
 const leftTracePaths = [
@@ -196,9 +197,7 @@ const HowItWorksSection = () => {
                     loading="lazy"
                     className="w-20 h-20 lg:w-24 lg:h-24 object-contain transition-all duration-300 hover:scale-110"
                     style={{
-                      filter: hoveredIndex === index 
-                        ? "drop-shadow(0 0 12px hsl(var(--primary) / 0.6))" 
-                        : "none",
+                      filter: hoveredIndex === index ? "drop-shadow(0 0 12px hsl(var(--primary) / 0.6))" : "none",
                     }}
                   />
                 </motion.div>
@@ -287,9 +286,7 @@ const HowItWorksSection = () => {
                     loading="lazy"
                     className="w-16 h-16 object-contain transition-all duration-300"
                     style={{
-                      filter: hoveredIndex === index 
-                        ? "drop-shadow(0 0 12px hsl(var(--primary) / 0.6))" 
-                        : "none",
+                      filter: hoveredIndex === index ? "drop-shadow(0 0 12px hsl(var(--primary) / 0.6))" : "none",
                     }}
                   />
                 </motion.div>
