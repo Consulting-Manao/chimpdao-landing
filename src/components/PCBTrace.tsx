@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { motion } from "motion/react";
 
 export interface TracePath {
@@ -24,7 +25,7 @@ export interface PCBTraceProps {
   baseDelay?: number;
 }
 
-const PCBTrace = ({
+const PCBTrace = forwardRef<SVGSVGElement, PCBTraceProps>(({
   paths,
   nodes,
   junctionNodes = [],
@@ -34,10 +35,10 @@ const PCBTrace = ({
   filterId = "traceGlow",
   duration = 0.6,
   baseDelay = 0,
-}: PCBTraceProps) => {
+}, ref) => {
 
   return (
-    <svg viewBox={viewBox} className={className} style={{ overflow: "visible" }}>
+    <svg ref={ref} viewBox={viewBox} className={className} style={{ overflow: "visible" }}>
       <defs>
         <filter id={filterId} x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -128,6 +129,8 @@ const PCBTrace = ({
       ))}
     </svg>
   );
-};
+});
+
+PCBTrace.displayName = "PCBTrace";
 
 export default PCBTrace;
