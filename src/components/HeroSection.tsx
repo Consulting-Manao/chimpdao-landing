@@ -84,7 +84,7 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start"
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -120,20 +120,24 @@ const HeroSection = () => {
                 View NFT Gallery
               </a>
             </Button>
-
-            <a
-              href="https://apps.apple.com/us/app/chimpdao/id6757618362?itscg=30200&itsct=apps_box_badge&mttnsubad=6757618362"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-[52px] hover:opacity-80 transition-opacity"
-            >
-              <img
-                src={appStoreBadge}
-                alt="Download on the App Store"
-                className="h-full w-auto"
-              />
-            </a>
           </motion.div>
+
+          {/* App Store Badge */}
+          <motion.a
+            href="https://apps.apple.com/us/app/chimpdao/id6757618362?itscg=30200&itsct=apps_box_badge&mttnsubad=6757618362"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex justify-center lg:justify-start hover:opacity-80 transition-opacity"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <img
+              src={appStoreBadge}
+              alt="Download on the App Store"
+              className="h-12"
+            />
+          </motion.a>
         </div>
       </div>
     </section>
