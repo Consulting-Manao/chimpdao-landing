@@ -61,7 +61,7 @@ const PartnershipsSection = () => {
           >
             {/* Highlighted badge */}
             <div className="absolute -top-3 left-6 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-              Most Popular
+              Chimpy's choice
             </div>
 
             <div className="mb-6">
