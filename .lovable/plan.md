@@ -1,85 +1,73 @@
 
-# Gorilla Sound Effect Implementation
 
-## Overview
+# Button Alignment Fix Plan
 
-Add the cleaned gorilla chest-beating sound effect to the "Let's Collaborate" button in the Partnerships section.
+## Current Issues Identified
 
----
+After reviewing the screenshot and code, I found these alignment inconsistencies:
 
-## Files to Create/Modify
-
-| File | Action | Description |
-|------|--------|-------------|
-| `public/sounds/gorilla-chest.m4a` | Create | Copy the cleaned audio file |
-| `src/hooks/useSound.ts` | Create | Reusable sound hook using native Audio API |
-| `src/components/PartnershipsSection.tsx` | Modify | Add sound playback on button click |
+1. **Conflicting alignment classes**: The buttons have `lg:justify-start` but are inside a centered container (`items-center text-center`), causing awkward positioning on larger screens
+2. **Inconsistent button widths**: The two CTA buttons have different content lengths but no width constraints, causing visual imbalance
+3. **App Store badge misalignment**: Has `lg:justify-start` which doesn't match the centered design intent
 
 ---
 
-## Implementation Details
+## Proposed Fix
 
-### 1. Copy Audio to Public Folder
+### File: `src/components/HeroSection.tsx`
 
-Copy `user-uploads://gorilla_chest_post.m4a` to `public/sounds/gorilla-chest.m4a`
+**Change 1: Remove conflicting `lg:justify-start` classes**
 
-Using `public/` folder because audio files need to be loaded via URL at runtime, not bundled as ES modules.
-
-### 2. Create Sound Hook
-
-```typescript
-// src/hooks/useSound.ts
-import { useCallback, useRef } from 'react';
-
-export const useSound = (src: string, volume = 0.7) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const play = useCallback(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio(src);
-      audioRef.current.volume = volume;
-    }
-    
-    audioRef.current.currentTime = 0;
-    audioRef.current.play().catch(() => {
-      // Handle autoplay restrictions gracefully
-    });
-  }, [src, volume]);
-
-  return { play };
-};
-```
-
-### 3. Update PartnershipsSection
-
-Add sound playback to the "Let's Collaborate" button:
+The hero section uses a centered layout throughout. The `lg:justify-start` classes create visual inconsistency on large screens.
 
 ```tsx
-import { useSound } from '@/hooks/useSound';
+// CTA Buttons container (line 87)
+// FROM:
+className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
 
-// Inside component:
-const { play: playGorillaSound } = useSound('/sounds/gorilla-chest.m4a', 0.6);
+// TO:
+className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+```
 
-const handleCollaborateClick = () => {
-  playGorillaSound();
-};
+```tsx
+// App Store Badge (line 130)
+// FROM:
+className="flex justify-center lg:justify-start hover:opacity-80 transition-opacity"
 
-// Button:
-<a
-  href="mailto:legal@consulting-manao.com"
-  onClick={handleCollaborateClick}
-  // ... existing classes
->
+// TO:
+className="flex justify-center hover:opacity-80 transition-opacity"
+```
+
+**Change 2: Add consistent minimum width to buttons**
+
+To ensure buttons appear visually balanced side-by-side:
+
+```tsx
+// Both Button components
+// Add min-w-[200px] to ensure equal minimum width
+
+// Shop Merch button:
+className="text-lg px-8 py-6 min-w-[200px] bg-primary text-primary-foreground hover:bg-primary/90 electric-glow-hover transition-all duration-300"
+
+// View NFT Gallery button:
+className="text-lg px-8 py-6 min-w-[200px] bg-chimp-purple/20 text-chimp-purple border-2 border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
 ```
 
 ---
 
-## Sound Behavior
+## Visual Result
 
-| Aspect | Value |
-|--------|-------|
-| Trigger | Button click |
-| Volume | 60% |
-| Multiple clicks | Resets and replays |
-| Mobile | Works after first user interaction |
-| Loading | Lazy loaded on first play |
+| Screen Size | Current | After Fix |
+|-------------|---------|-----------|
+| Mobile | Buttons stacked, centered ✓ | Same ✓ |
+| Tablet | Buttons side-by-side, centered | Buttons equal width, centered |
+| Desktop | Buttons shifted left (awkward) | Buttons centered, equal width |
+
+---
+
+## Summary
+
+- Remove `lg:justify-start` from both the button container and App Store badge to maintain consistent centering
+- Add `min-w-[200px]` to both CTA buttons so they appear visually balanced
+- Add `items-center` to the button flex container for proper vertical alignment
+
