@@ -14,7 +14,7 @@ const steps = [
   {
     image: nfcChip,
     title: "Tap & Verify",
-    description: "Scan the chip to authenticate ownership and access the Chimp app",
+    description: "Scan to prove you physically hold the item and verify authentic ownership",
   },
   {
     image: chimpLogo,
