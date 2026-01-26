@@ -1,73 +1,79 @@
 
+# Button Styling Refinement Plan
 
-# Button Alignment Fix Plan
+## Analysis
 
-## Current Issues Identified
+Comparing the Apple App Store badge to the current CTA buttons:
 
-After reviewing the screenshot and code, I found these alignment inconsistencies:
+| Property | Apple Badge | Current CTAs |
+|----------|------------|--------------|
+| Height | ~40px | ~52px |
+| Icon size | ~17px | 24px |
+| Horizontal padding | ~12px | 32px (px-8) |
+| Vertical padding | ~10px | 24px (py-6) |
+| Text size | ~13px | 18px (text-lg) |
 
-1. **Conflicting alignment classes**: The buttons have `lg:justify-start` but are inside a centered container (`items-center text-center`), causing awkward positioning on larger screens
-2. **Inconsistent button widths**: The two CTA buttons have different content lengths but no width constraints, causing visual imbalance
-3. **App Store badge misalignment**: Has `lg:justify-start` which doesn't match the centered design intent
+The current buttons are significantly bulkier than the Apple reference.
 
 ---
 
-## Proposed Fix
+## Proposed Changes
 
 ### File: `src/components/HeroSection.tsx`
 
-**Change 1: Remove conflicting `lg:justify-start` classes**
-
-The hero section uses a centered layout throughout. The `lg:justify-start` classes create visual inconsistency on large screens.
+**1. Reduce button padding to match Apple proportions**
 
 ```tsx
-// CTA Buttons container (line 87)
 // FROM:
-className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
+className="text-lg px-8 py-6 min-w-[200px] ..."
 
 // TO:
-className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+className="text-base px-5 py-2.5 min-w-[180px] ..."
 ```
 
+- `px-8` (32px) → `px-5` (20px) - tighter horizontal padding
+- `py-6` (24px) → `py-2.5` (10px) - matching Apple's vertical padding
+- `text-lg` → `text-base` - slightly smaller text (16px vs 18px)
+- `min-w-[200px]` → `min-w-[180px]` - slightly narrower minimum
+
+**2. Reduce icon size to match Apple proportions**
+
 ```tsx
-// App Store Badge (line 130)
 // FROM:
-className="flex justify-center lg:justify-start hover:opacity-80 transition-opacity"
+<img src={iconShop} alt="" width={24} height={24} className="w-6 h-6 object-contain" />
 
 // TO:
-className="flex justify-center hover:opacity-80 transition-opacity"
+<img src={iconShop} alt="" width={18} height={18} className="w-[18px] h-[18px] object-contain" />
 ```
 
-**Change 2: Add consistent minimum width to buttons**
+- Icon: 24px → 18px (closer to Apple's ~17px icon)
 
-To ensure buttons appear visually balanced side-by-side:
+**3. Reduce gap between icon and text**
 
 ```tsx
-// Both Button components
-// Add min-w-[200px] to ensure equal minimum width
+// FROM:
+className="flex items-center gap-3"
 
-// Shop Merch button:
-className="text-lg px-8 py-6 min-w-[200px] bg-primary text-primary-foreground hover:bg-primary/90 electric-glow-hover transition-all duration-300"
-
-// View NFT Gallery button:
-className="text-lg px-8 py-6 min-w-[200px] bg-chimp-purple/20 text-chimp-purple border-2 border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
+// TO:
+className="flex items-center gap-2"
 ```
+
+- Gap: 12px → 8px for tighter spacing
 
 ---
 
-## Visual Result
+## Visual Comparison
 
-| Screen Size | Current | After Fix |
-|-------------|---------|-----------|
-| Mobile | Buttons stacked, centered ✓ | Same ✓ |
-| Tablet | Buttons side-by-side, centered | Buttons equal width, centered |
-| Desktop | Buttons shifted left (awkward) | Buttons centered, equal width |
+| Property | Before | After |
+|----------|--------|-------|
+| Button height | ~52px | ~40px |
+| Icon size | 24px | 18px |
+| Horizontal padding | 32px | 20px |
+| Vertical padding | 24px | 10px |
+| Text size | 18px | 16px |
 
 ---
 
 ## Summary
 
-- Remove `lg:justify-start` from both the button container and App Store badge to maintain consistent centering
-- Add `min-w-[200px]` to both CTA buttons so they appear visually balanced
-- Add `items-center` to the button flex container for proper vertical alignment
-
+The buttons will be refined to match the compact, professional look of the Apple App Store badge while maintaining the brand colors and hover effects.
