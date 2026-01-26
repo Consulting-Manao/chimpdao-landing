@@ -102,7 +102,7 @@ const HeroSection = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5"
               >
-                <img src={iconShop} alt="" className="w-[26px] h-[26px] object-contain" />
+                <img src={iconShop} alt="" className="w-[30px] h-[30px] object-contain" />
                 <span className="text-[19px] font-medium">Shop Merch</span>
               </a>
             </Button>
@@ -117,7 +117,7 @@ const HeroSection = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5"
               >
-                <img src={iconNft} alt="" className="w-[26px] h-[26px] object-contain" />
+                <img src={iconNft} alt="" className="w-[30px] h-[30px] object-contain" />
                 <span className="text-[19px] font-medium">NFT Collection</span>
               </a>
             </Button>
