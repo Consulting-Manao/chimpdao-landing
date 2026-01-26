@@ -15,10 +15,10 @@ const HeroSection = () => {
     <section ref={sectionRef} className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Grid background */}
       <div className="absolute inset-0 grid-background opacity-30" />
-      
+
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
-      
+
       <div className="container relative z-10 px-4 py-20">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           {/* Logo with PCB electric traces */}
@@ -31,13 +31,17 @@ const HeroSection = () => {
             <div className="relative w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80">
               {/* PCB traces emanating from logo */}
               <ElectricTraces className="scale-[1.4] md:scale-[1.6] lg:scale-[1.8]" isActive={isInView} />
-              
+
               {/* Main chimp logo with scale pulse animation (synced with traces) */}
               <motion.div
                 className="relative z-10 w-full h-full flex items-center justify-center"
-                animate={isInView ? { 
-                  scale: [1, 1.12, 1],
-                } : {}}
+                animate={
+                  isInView
+                    ? {
+                        scale: [1, 1.12, 1],
+                      }
+                    : {}
+                }
                 transition={{
                   duration: 3.5,
                   repeat: Infinity,
@@ -78,8 +82,7 @@ const HeroSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            NFC-powered NFTs on{" "}
-            <span className="text-foreground font-semibold">Stellar</span>
+            NFC-powered NFTs on <span className="text-foreground font-semibold">Stellar</span>
           </motion.p>
 
           {/* CTA Buttons */}
@@ -115,7 +118,7 @@ const HeroSection = () => {
                 className="flex items-center gap-2.5"
               >
                 <img src={iconNft} alt="" className="w-[26px] h-[26px] object-contain" />
-                <span className="text-[19px] font-medium">View NFT Gallery</span>
+                <span className="text-[19px] font-medium">NFT Collection</span>
               </a>
             </Button>
           </motion.div>
@@ -130,11 +133,7 @@ const HeroSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <img
-              src={appStoreBadge}
-              alt="Download on the App Store"
-              className="h-[60px]"
-            />
+            <img src={appStoreBadge} alt="Download on the App Store" className="h-[60px]" />
           </motion.a>
         </div>
       </div>
