@@ -91,31 +91,31 @@ const HeroSection = () => {
           >
             <Button
               asChild
-              className="h-10 px-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 electric-glow-hover transition-all duration-300"
+              className="h-[60px] px-4 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 electric-glow-hover transition-all duration-300"
             >
               <a
                 href="https://shop.chimpdao.xyz"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5"
+                className="flex items-center gap-2.5"
               >
-                <img src={iconShop} alt="" className="w-[17px] h-[17px] object-contain" />
-                <span className="text-[13px] font-medium">Shop Merch</span>
+                <img src={iconShop} alt="" className="w-[26px] h-[26px] object-contain" />
+                <span className="text-[19px] font-medium">Shop Merch</span>
               </a>
             </Button>
 
             <Button
               asChild
-              className="h-10 px-3 rounded-lg bg-chimp-purple/20 text-chimp-purple border border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
+              className="h-[60px] px-4 rounded-xl bg-chimp-purple/20 text-chimp-purple border border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
             >
               <a
                 href="https://nft.chimpdao.xyz"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5"
+                className="flex items-center gap-2.5"
               >
-                <img src={iconNft} alt="" className="w-[17px] h-[17px] object-contain" />
-                <span className="text-[13px] font-medium">View NFT Gallery</span>
+                <img src={iconNft} alt="" className="w-[26px] h-[26px] object-contain" />
+                <span className="text-[19px] font-medium">View NFT Gallery</span>
               </a>
             </Button>
           </motion.div>
@@ -133,7 +133,7 @@ const HeroSection = () => {
             <img
               src={appStoreBadge}
               alt="Download on the App Store"
-              className="h-10"
+              className="h-[60px]"
             />
           </motion.a>
         </div>
