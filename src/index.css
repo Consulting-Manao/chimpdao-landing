@@ -85,23 +85,20 @@
   /* Electric glow effect for buttons and interactive elements */
   .electric-glow {
     box-shadow: 
-      0 0 20px hsl(var(--chimp-yellow) / 0.3),
-      0 0 40px hsl(var(--chimp-yellow) / 0.2),
-      0 0 60px hsl(var(--chimp-yellow) / 0.1);
+      0 20px 40px -10px hsl(var(--chimp-yellow) / 0.2),
+      0 0 20px 0 hsl(var(--chimp-yellow) / 0.08);
   }
 
   .electric-glow-hover:hover {
-    box-shadow: 
-      0 0 25px hsl(var(--chimp-yellow) / 0.5),
-      0 0 50px hsl(var(--chimp-yellow) / 0.3),
-      0 0 75px hsl(var(--chimp-yellow) / 0.2);
+    box-shadow:
+      0 20px 40px -10px hsl(var(--chimp-yellow) / 0.25),
+      0 0 30px 0 hsl(var(--chimp-yellow) / 0.1);
   }
 
   .electric-glow-purple:hover {
-    box-shadow: 
-      0 0 25px hsl(var(--chimp-purple) / 0.5),
-      0 0 50px hsl(var(--chimp-purple) / 0.3),
-      0 0 75px hsl(var(--chimp-purple) / 0.2);
+    box-shadow:
+      0 20px 40px -10px hsl(var(--chimp-purple) / 0.2),
+      0 0 20px 0 hsl(var(--chimp-purple) / 0.08);
   }
 
   /* Subtle grid background */
@@ -112,11 +109,9 @@
     background-size: 50px 50px;
   }
 
-  /* Text glow effect */
+  /* Text glow effect - clean white, no glow */
   .text-glow {
-    text-shadow: 
-      0 0 10px hsl(var(--chimp-yellow) / 0.5),
-      0 0 20px hsl(var(--chimp-yellow) / 0.3);
+    color: hsl(0 0% 100%);
   }
 }
 
