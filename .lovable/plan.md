@@ -1,108 +1,64 @@
 
-# Exact Apple Badge Match - Clean Fix
 
-## Problem Analysis
+# Update OG Image to Match NFT Collection Site
 
-From the screenshot and code review:
+## Exact Specifications from chimpdao-nft Repository
 
-| Element | App Store Badge | Current Buttons |
-|---------|-----------------|-----------------|
-| Height | 48px (h-12 class) | 40px (default h-10) |
-| Icon size | ~17px (Apple logo) | 18px |
-| Text size | ~13px | 16px (text-base) |
-| Horizontal padding | ~12px | 20px (px-5) |
-| Border radius | ~8px | 6px (rounded-md) |
+From the live site screenshot and source code analysis:
 
-The App Store badge is rendered at `h-12` (48px) on line 136. The buttons need to match this exactly.
-
----
-
-## Solution
-
-Remove all conflicting styles and match the Apple badge precisely.
-
-### File: `src/components/HeroSection.tsx`
-
-**Step 1: Match exact height to App Store badge (h-10 = 40px)**
-
-The SVG is 40px tall, but it's being displayed at `h-12` (48px). We need to either:
-- Make buttons 48px to match the displayed badge, OR
-- Make the badge 40px and buttons 40px
-
-I recommend making everything 40px (the Apple standard) for a cleaner look.
-
-**Step 2: Match internal proportions exactly**
-
-Apple badge internal layout:
-- Icon: 17px x 17px
-- Text: 13px (~text-xs)
-- Horizontal padding: ~12px (px-3)
-- Gap between icon and text: ~6px (gap-1.5)
-
-**Changes to buttons (lines 92-120):**
-
+### Background Styling (from `LandingPage.tsx` lines 57-67)
 ```tsx
-<Button
-  asChild
-  className="h-10 px-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 electric-glow-hover transition-all duration-300"
->
-  <a
-    href="https://shop.chimpdao.xyz"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-1.5"
-  >
-    <img src={iconShop} alt="" className="w-[17px] h-[17px] object-contain" />
-    <span className="text-[13px] font-medium">Shop Merch</span>
-  </a>
-</Button>
+// Main container
+<div className="min-h-screen flex flex-col relative bg-[hsl(30_25%_32%)]">
 
-<Button
-  asChild
-  className="h-10 px-3 rounded-lg bg-chimp-purple/20 text-chimp-purple border border-chimp-purple/50 hover:bg-chimp-purple/30 hover:border-chimp-purple electric-glow-purple transition-all duration-300"
->
-  <a
-    href="https://nft.chimpdao.xyz"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-1.5"
-  >
-    <img src={iconNft} alt="" className="w-[17px] h-[17px] object-contain" />
-    <span className="text-[13px] font-medium">View NFT Gallery</span>
-  </a>
-</Button>
+// Pattern overlay
+<div
+  className="absolute inset-0 opacity-[0.08] pointer-events-none"
+  style={{
+    backgroundImage: 'url(/token-bg-pattern.png)',
+    backgroundSize: '600px',
+    backgroundRepeat: 'repeat'
+  }}
+/>
 ```
 
-**Step 3: Match App Store badge height (line 136):**
+| Property | Exact Value |
+|----------|-------------|
+| Background color | `hsl(30 25% 32%)` = approximately #6B5D50 (warm brown/tan) |
+| Pattern asset | `/token-bg-pattern.png` (the uploaded pixel-art pattern) |
+| Pattern opacity | `0.08` (8%) |
+| Pattern size | `600px` (repeating) |
 
-```tsx
-// FROM:
-className="h-12"
+### Logo Used
+The site uses `chimp-joystick.png` (same as in the landing page footer) - the yellow square with the pixel-art hanger/joystick icon.
 
-// TO:
-className="h-10"
+---
+
+## Implementation Steps
+
+### Step 1: Save the Pattern Asset
+Copy the uploaded pixel-art pattern to the public folder:
+```
+user-uploads://Rectangle-2.png → public/token-bg-pattern.png
 ```
 
----
+### Step 2: Regenerate OG Image
+Create `public/og-image.png` with these exact specifications:
 
-## Exact Specifications Applied
+| Property | Value |
+|----------|-------|
+| Dimensions | 1200 x 630 (standard OG image) |
+| Background | `hsl(30 25% 32%)` - warm brown/tan (#6B5D50) |
+| Pattern | Pixel-art gaming icons at exactly 8% opacity, 600px tile size |
+| Logo | `chimp-joystick.png` centered, prominent size (~120-150px) |
+| Title | "ChimpDAO" in white/light cream, bold |
+| Tagline | "NFC-Powered NFTs on Stellar" in muted white/gray |
+| Glow | None or very subtle - the NFT site has no dramatic glow effects |
 
-| Property | Value | Matches Apple |
-|----------|-------|---------------|
-| Height | 40px (h-10) | Yes |
-| Horizontal padding | 12px (px-3) | Yes |
-| Icon size | 17px | Yes |
-| Text size | 13px | Yes |
-| Gap | 6px (gap-1.5) | Yes |
-| Border radius | 8px (rounded-lg) | Yes |
-| Border | 1px (changed from 2px) | Yes |
+### Visual Reference
+The OG image should match the warm, understated aesthetic of the NFT collection site:
+- Brown background (NOT black)
+- Subtle repeating pixel-art pattern barely visible
+- Clean, professional look without dramatic glowing effects
+- Same branding consistency as https://nft.chimpdao.xyz/
 
----
-
-## Technical Notes
-
-- Removed `min-w-[180px]` - let content dictate width naturally like Apple badge
-- Changed `border-2` to `border` (1px) to match Apple's subtle border
-- Changed `rounded-md` (6px) to `rounded-lg` (8px) to match Apple's radius
-- Using explicit `text-[13px]` for precise font size control
-- Icons set to exactly 17px to match Apple logo size
