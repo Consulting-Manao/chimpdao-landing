@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import ElectricTraces from "./ElectricTraces";
 import chimpLogo from "@/assets/chimp-logo.png";
 import tshirtMerch from "@/assets/tshirt-merch.png";
-import iconNft from "@/assets/icon-group-27.png";
+
 import appStoreBadge from "@/assets/app-store-badge.svg";
 
 const HeroSection = () => {
@@ -114,7 +114,7 @@ const HeroSection = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5"
               >
-                <img src={iconNft} alt="" className="w-[34px] h-[34px] object-contain" />
+                <img src={chimpLogo} alt="" className="w-[34px] h-[34px] object-contain" />
                 <span className="text-[19px] font-medium">NFT Collection</span>
               </a>
             </Button>
