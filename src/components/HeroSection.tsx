@@ -13,11 +13,8 @@ const HeroSection = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-      {/* Grid background */}
-      <div className="absolute inset-0 grid-background opacity-30" />
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
+      {/* Subtle vignette for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/30" />
 
       <div className="container relative z-10 px-4 py-20">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
