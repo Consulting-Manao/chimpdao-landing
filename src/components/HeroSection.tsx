@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import ElectricTraces from "./ElectricTraces";
 import chimpLogo from "@/assets/chimp-logo.png";
-import iconShop from "@/assets/icon-group-25.png";
+import tshirtMerch from "@/assets/tshirt-merch.png";
 import iconNft from "@/assets/icon-group-27.png";
 import appStoreBadge from "@/assets/app-store-badge.svg";
 
@@ -99,7 +99,7 @@ const HeroSection = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5"
               >
-                <img src={iconShop} alt="" className="w-[34px] h-[34px] object-contain" />
+                <img src={tshirtMerch} alt="" className="w-[34px] h-[34px] object-contain" />
                 <span className="text-[19px] font-medium">Shop Merch</span>
               </a>
             </Button>
